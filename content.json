@@ -1,0 +1,1441 @@
+{
+  "meta": {
+    "title": "面向抗量子迁移的统一密码服务接口设计与实现",
+    "note": "运行截图 PNG 由用户在云主机生成后替换同名文件"
+  },
+  "abstract": {
+    "zh": "随着量子计算研究持续推进，传统公钥密码体系面临长期安全性挑战。实际系统在迁移过程中通常同时存在经典密码机、智能密码钥匙、软件密码库和抗量子密码设备，多源设备接口在会话管理、密钥引用、算法命名、数据缓冲、错误处理方面差异明显，导致业务系统难以平滑迁移。本文围绕抗量子迁移场景，设计并实现一种统一密码服务接口（UCiSDK）。该接口将上层能力划分为环境类、密码运算类、密钥管理类和数字签名类四类共34个函数，通过算法参数、密钥引用和数据缓冲三类统一结构表达密码操作语义。系统内部采用客户端封装层、网关调度层和适配器层的三层架构，基于本地socket进行进程间通信，将上层接口转换为后端经典密码设备、抗量子设备或软件库可执行的调用。原型系统采用C11语言实现，已对接GM3000智能密码钥匙真实硬件，并通过模拟适配器覆盖经典SDF设备和抗量子设备能力。测试结果表明，四类接口能够在统一参数模型下完成调用，混合密钥协商和混合签名可通过序列调度机制实现跨设备串行执行，为后续对接真实密码机和扩展抗量子算法提供了工程基础。",
+    "zh_keywords": "抗量子密码；统一密码服务；密码设备接口；密钥管理；数字签名；适配器模式",
+    "en": "As quantum computing advances, traditional public-key cryptosystems face long-term security challenges. This thesis designs and implements a Unified Cryptographic Interface SDK (UCiSDK) for post-quantum migration scenarios. The interface classifies upper-layer capabilities into four categories with 34 functions: environment management, cryptographic operations, key management, and digital signature services. Three unified structures — 算法 parameters, key references, and data buffers — describe the semantics of each cryptographic operation. Internally, a three-layer architecture comprising client wrapper, gateway scheduler, and device adapter translates upper-layer calls into backend-specific device invocations over 本地sockets. The prototype is implemented in C11, integrates with real GM3000 SKF hardware tokens, and covers classic SDF and post-quantum device capabilities through simulation adapters. Tests confirm that all four interface categories operate under the unified parameter model, and hybrid key agreement and hybrid signatures execute across devices via the 序列调度 scheduling mechanism.",
+    "en_keywords": "post-quantum cryptography; unified cryptographic service; cryptographic device interface; key management; digital signature; adapter pattern"
+  },
+  "sections": [
+    {
+      "type": "chapter",
+      "title": "引言",
+      "blocks": [
+        {
+          "type": "heading2",
+          "title": "研究背景与意义"
+        },
+        {
+          "type": "paragraph",
+          "text": "密码技术是网络空间安全体系的基础支撑。身份认证、数据加密、数字签名、密钥交换和完整性校验等核心安全功能均依赖密码算法和密码设备完成。实际系统中，密码能力并非通过直接调用算法实现，而是通过密码机、智能密码钥匙、密码卡或软件密码库等设备暴露的接口来完成密码操作。因此，密码设备接口的统一性直接影响业务系统能否稳定、可维护地使用密码能力{{cite:1}}{{cite:2}}。"
+        },
+        {
+          "type": "paragraph",
+          "text": "量子计算的发展使传统公钥密码体系面临长期安全风险。Shor算法可对基于整数分解和离散对数困难问题的传统公钥密码构成根本威胁{{cite:3}}，Grover算法则会降低对称密码穷举搜索的安全裕度{{cite:4}}。NIST已发布ML-KEM（FIPS 203）、ML-DSA（FIPS 204）和SLH-DSA（FIPS 205）等抗量子密码标准{{cite:5}}{{cite:6}}{{cite:7}}，抗量子迁移已从算法研究阶段进入标准化和工程落地阶段{{cite:8}}。"
+        },
+        {
+          "type": "paragraph",
+          "text": "在工程迁移阶段，系统不会一次性替换所有密码算法和设备，而是传统密码能力与抗量子密码能力并行运行。这会带来接口层面的突出矛盾：经典密码机接口（如GM/T 0018{{cite:1}}）和智能密码钥匙接口（如GM/T 0016{{cite:2}}）、抗量子设备接口和软件库接口的函数粒度不同、参数组织方式不同、能力声明方式不同。业务系统若直接面对这些分散接口，将难以实现平滑迁移。"
+        },
+        {
+          "type": "paragraph",
+          "text": "本文的研究意义在于面向抗量子迁移过程设计一层统一密码服务接口，将不同设备、不同算法和不同使用方式收敛为统一的语义模型，使业务系统只需表达\"使用什么算法、使用什么密钥、对什么数据执行什么操作\"，而无须关心后端设备属于经典密码机、抗量子设备还是软件库。"
+        },
+        {
+          "type": "heading2",
+          "title": "国内外研究及发展现状"
+        },
+        {
+          "type": "paragraph",
+          "text": "国外研究方面，NIST后量子密码标准化项目是抗量子迁移的核心依据。经过多轮评估，NIST选定ML-KEM{{cite:5}}、ML-DSA{{cite:6}}和SLH-DSA{{cite:7}}为首批标准算法，并发布了密钥管理建议{{cite:9}}和算法过渡指南{{cite:10}}。在传统安全协议方面，TLS 1.3{{cite:11}}、X.509 PKI{{cite:12}}、CMS{{cite:13}}和PKCS#1{{cite:14}}等密码服务提供了成熟的消息和证书结构。CRYSTALS-Kyber{{cite:15}}和CRYSTALS-Dilithium{{cite:16}}的原始论文详细描述了格基密钥封装和签名机制，SPHINCS+{{cite:17}}提出无状态哈希签名方案。"
+        },
+        {
+          "type": "paragraph",
+          "text": "国内研究方面，《密码法》{{cite:18}}和《商用密码管理条例》{{cite:19}}确立了密码应用的法律框架。SM2{{cite:20}}{{cite:21}}{{cite:22}}{{cite:23}}{{cite:24}}、SM3{{cite:25}}{{cite:26}}、SM4{{cite:27}}等国产算法标准、密码模块安全要求{{cite:28}}和信息系统密码应用基本要求{{cite:29}}构成了商用密码应用体系。GM/T 0018{{cite:1}}规定了服务器密码机应用接口，GM/T 0016{{cite:2}}规定了智能密码钥匙接口。但现有规范分别面向不同设备形态制定，缺少面向多类设备统一调用的中间层设计。近年微服务安全与服务拆分研究表明，服务化系统通常需要在接口边界、服务粒度和安全治理之间建立清晰约束{{cite:30}}{{cite:31}}。"
+        },
+        {
+          "type": "paragraph",
+          "text": "近年平台化和服务化建设也为统一密码服务接口提供了工程参考。工业互联网平台相关标准将微服务拆分、服务注册、接口开放和调用治理作为平台能力建设的重要内容{{cite:32}}{{cite:33}}；软件开发工具包安全要求和边缘计算安全要求则强调接口边界、权限控制、密钥材料保护和组件安全调用{{cite:34}}{{cite:35}}{{cite:36}}。这些工作说明，密码能力不宜只以单一设备接口暴露，而应通过稳定接口、统一调度和受控适配方式向上层业务提供服务。"
+        },
+        {
+          "type": "paragraph",
+          "text": "从已有工程实践看，单体系统向服务化架构迁移时，接口边界、服务粒度和内部实现替换是影响系统可维护性的关键因素{{cite:37}}。统一密码服务方案容易出现两类问题：一是接口划分过粗，把所有操作塞入一个入口，导致参数复杂且职责不清；二是接口划分过碎，为每种算法、每种设备单独设计函数，导致函数数量膨胀。本文通过四类接口划分和三类统一结构设计，在接口粒度上取得平衡。"
+        },
+        {
+          "type": "heading2",
+          "title": "研究目的与内容"
+        },
+        {
+          "type": "paragraph",
+          "text": "本文的研究目的旨在抗量子迁移背景下设计并实现统一密码服务接口UCiSDK，使其同时覆盖传统密码能力和抗量子密码能力，并通过调度与适配机制对接多类后端设备。接口设计强调上层分类清晰、参数表达统一、后端扩展方便、测试结果可观察。"
+        },
+        {
+          "type": "paragraph",
+          "text": "研究内容围绕\"分析、设计、实现、测试\"四个环节展开：首先分析经典密码设备、抗量子设备和软件库的接口差异；其次给出统一密码服务接口的功能边界和四类划分依据；然后设计内部语义模型、适配器层、调度层和封装层的三层架构；最后结合C11原型代码和GM3000真实硬件给出实现方式和测试结果。"
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "title": "1  现有密码设备接口分析",
+      "blocks": [
+        {
+          "type": "heading2",
+          "title": "1.1  经典密码设备接口分析"
+        },
+        {
+          "type": "paragraph",
+          "text": "经典密码设备面向SM2、SM3、SM4、RSA等成熟算法提供能力，覆盖设备初始化、会话管理、随机数生成、密钥生成与访问控制、对称加解密、非对称加解密、签名验签、杂凑计算和文件读写等功能{{cite:1}}。以GM/T 0018为例，设备接口以会话句柄、内部密钥索引、访问权限和厂商错误码为核心概念组织调用流程。"
+        },
+        {
+          "type": "paragraph",
+          "text": "经典设备接口的问题不在于能力不足，而在能力暴露方式与业务语义之间存在距离。业务系统完成一次签名操作只需表达\"使用某密钥对某数据签名\"，而底层接口要求依次打开设备、建立会话、获取私钥访问权限、选择密钥索引、执行签名、释放权限和关闭会话。业务语义只有一项，而底层步骤却有多步。"
+        },
+        {
+          "type": "paragraph",
+          "text": "如表1-1所示，经典密码设备接口的特征可从能力粒度、密钥表达、数据表达、算法表达和错误处理五个维度归纳。"
+        },
+        {
+          "type": "table",
+          "caption": "表1-1  经典密码设备接口特征分析",
+          "headers": [
+            "分析维度",
+            "典型表现",
+            "对统一接口的影响"
+          ],
+          "rows": [
+            [
+              "能力粒度",
+              "设备管理、密钥管理、对称运算、非对称运算、杂凑运算等能力较完整",
+              "统一接口需保留这些能力但不照搬设备函数粒度"
+            ],
+            [
+              "密钥表达",
+              "使用内部密钥索引、会话密钥句柄或外部公钥结构",
+              "需抽象为统一密钥引用结构"
+            ],
+            [
+              "数据表达",
+              "使用指针加长度的输入输出缓冲区",
+              "需抽象为统一数据缓冲结构"
+            ],
+            [
+              "算法表达",
+              "算法体现在函数名、算法标识或参数结构中",
+              "需统一为算法参数结构"
+            ],
+            [
+              "错误处理",
+              "返回厂商错误码或设备状态码",
+              "需转换为统一错误语义"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "1.2  抗量子密码设备接口分析"
+        },
+        {
+          "type": "paragraph",
+          "text": "抗量子密码设备或软件模块的能力重心与传统设备不同。传统公钥密码围绕签名、验签、加密、解密和密钥交换组织，抗量子迁移中则更关注KEM封装/解封装、抗量子签名和混合密钥协商。ML-KEM的核心功能是通过公钥封装共享秘密并通过私钥解封装{{cite:5}}{{cite:15}}，ML-DSA和SLH-DSA的核心功能是生成和验证数字签名{{cite:6}}{{cite:7}}{{cite:16}}{{cite:17}}。"
+        },
+        {
+          "type": "paragraph",
+          "text": "抗量子设备接口的复杂性来自两方面：一是算法参数集更多，不同安全级别对应不同的密钥长度、密文长度和签名长度；二是迁移期要求传统算法和抗量子算法并行使用，形成混合密钥协商和混合签名流程。如图1-1所示，业务系统与多类设备之间缺少统一中间层，是造成接口分散的根本原因。"
+        },
+        {
+          "type": "svg",
+          "caption": "图1-1  现有密码设备接口差异示意图",
+          "path": "images/ch1_device_interface_fragmentation.svg"
+        },
+        {
+          "type": "paragraph",
+          "text": "如表1-2所示，经典设备与抗量子设备在主要算法、密钥建立方式、数字签名和参数长度等方面存在明显差异，统一接口设计必须同时兼顾两类设备的需求。"
+        },
+        {
+          "type": "table",
+          "caption": "表1-2  经典密码设备与抗量子设备接口差异",
+          "headers": [
+            "比较项",
+            "经典密码设备",
+            "抗量子密码设备",
+            "统一接口设计要求"
+          ],
+          "rows": [
+            [
+              "主要算法",
+              "RSA、SM2、SM3、SM4等",
+              "ML-KEM、ML-DSA、SLH-DSA等",
+              "算法标识必须可扩展"
+            ],
+            [
+              "密钥建立",
+              "密钥交换、密钥协商、密钥导入导出",
+              "KEM封装/解封装、混合协商",
+              "密钥管理类必须覆盖KEM和混合协商"
+            ],
+            [
+              "数字签名",
+              "传统签名和验签",
+              "抗量子签名和混合签名",
+              "数字签名类应单独成类"
+            ],
+            [
+              "参数长度",
+              "密钥和签名长度较固定",
+              "密钥、密文、签名更长且随参数集变化",
+              "数据缓冲结构应避免固定长度假设"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "1.3  其他设备与软件库"
+        },
+        {
+          "type": "paragraph",
+          "text": "除专用密码机和抗量子设备外，实际系统还使用智能密码钥匙、密码卡和通用软件库。智能密码钥匙（如GM3000）以容器、应用、PIN、证书和文件为核心概念组织接口{{cite:2}}，软件库则以算法上下文、输入输出缓冲和算法参数为核心。这些设备和软件库是统一接口需要兼容的后端资源。"
+        },
+        {
+          "type": "paragraph",
+          "text": "如图1-2所示，经典设备和抗量子设备在密钥生成、数据保护、签名验证和杂凑验证等方面存在能力共性，可由统一能力模型对接。"
+        },
+        {
+          "type": "svg",
+          "caption": "图1-2  经典设备与抗量子设备能力对照",
+          "path": "images/ch1_classic_pqc_comparison.svg"
+        },
+        {
+          "type": "paragraph",
+          "text": "由本章分析可得出三个结论：第一，设备接口可作为适配对象但不应成为上层接口形态；第二，密钥必须抽象为统一引用，不能只支持内部索引或外部结构中的一种；第三，算法差异必须进入算法参数结构，而不应体现在大量算法专名函数上。"
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "title": "2  统一密码服务接口功能分析",
+      "blocks": [
+        {
+          "type": "heading2",
+          "title": "2.1  总体功能分析"
+        },
+        {
+          "type": "paragraph",
+          "text": "统一密码服务接口需要解决两个层面的矛盾：上层业务希望接口稳定、分类清晰、函数少而明确；后端设备能力复杂，既包括传统密码设备也包括抗量子设备和软件库。本文将统一密码服务接口划分为环境类、密码运算类、密钥管理类和数字签名类四类。如图2-1所示，四类接口共同使用算法参数（Unif_AlgParams）、密钥引用（Unif_KeyRef）和数据缓冲（Unif_Buffer）三类基础结构。"
+        },
+        {
+          "type": "svg",
+          "caption": "图2-1  统一密码服务接口四类功能划分",
+          "path": "images/ch2_four_function_categories.svg"
+        },
+        {
+          "type": "paragraph",
+          "text": "如表2-1所示，四类接口的边界以职责为依据，各类接口具有明确的\"应当包含\"和\"不应包含\"边界。"
+        },
+        {
+          "type": "table",
+          "caption": "表2-1  统一密码服务接口功能分类",
+          "headers": [
+            "接口类别",
+            "主要职责",
+            "不应包含的内容"
+          ],
+          "rows": [
+            [
+              "环境类（8个函数）",
+              "初始化、释放、版本查询、登录、口令修改、登出、能力查询、随机数生成",
+              "具体加密、签名和密钥导入逻辑"
+            ],
+            [
+              "密码运算类（9个函数）",
+              "杂凑、分步杂凑、消息认证码、对称加解密、非对称加解密",
+              "密钥生命周期管理、证书管理"
+            ],
+            [
+              "密钥管理类（11个函数）",
+              "密钥生成、导入、导出、销毁、查询、KEM封装/解封装、密钥协商、混合密钥协商",
+              "普通数据加解密和签名验签"
+            ],
+            [
+              "数字签名类（6个函数）",
+              "普通签名、普通验签、摘要签名、摘要验签、混合签名、混合验签",
+              "证书链验证、证书存储"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "2.2  环境类功能分析"
+        },
+        {
+          "type": "paragraph",
+          "text": "环境类是统一密码服务接口的基础，负责建立调用上下文、确认服务版本、完成用户登录、修改口令、查询能力和生成随机数。环境类不直接执行加密或签名操作，其设计目标是让调用者以统一方式接入密码服务，而非直接进入各类设备的会话管理流程。如表2-2所示，环境类功能围绕运行状态和基础能力展开。"
+        },
+        {
+          "type": "table",
+          "caption": "表2-2  环境类功能分析",
+          "headers": [
+            "功能项",
+            "功能说明",
+            "设计考虑"
+          ],
+          "rows": [
+            [
+              "初始化与释放",
+              "建立或释放上层服务上下文",
+              "上下文不等同于某一台设备的底层会话"
+            ],
+            [
+              "版本查询",
+              "返回统一服务接口版本",
+              "便于业务系统判断接口兼容性"
+            ],
+            [
+              "登录与登出",
+              "完成网关侧用户认证",
+              "网关PIN不应作为底层设备PIN透传"
+            ],
+            [
+              "能力查询",
+              "返回统一服务当前可用能力",
+              "能力以功能类别、动作和算法维度表达"
+            ],
+            [
+              "随机数生成",
+              "请求指定长度随机数",
+              "随机源可路由到硬件设备"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "2.3  密码运算类功能分析"
+        },
+        {
+          "type": "paragraph",
+          "text": "密码运算类负责直接处理数据，包括Hash、MAC、对称加解密和非对称加解密。这些操作的共同特征是\"输入数据，输出计算结果\"，密钥作为操作参数参与运算但不改变密钥生命周期。如表2-3所示，密码运算类通过统一算法参数表达不同算法的工作模式和填充方式。"
+        },
+        {
+          "type": "table",
+          "caption": "表2-3  密码运算类功能分析",
+          "headers": [
+            "功能项",
+            "输入要素",
+            "输出要素",
+            "归类理由"
+          ],
+          "rows": [
+            [
+              "杂凑计算",
+              "算法参数、输入数据",
+              "杂凑值",
+              "无密钥的数据摘要计算"
+            ],
+            [
+              "消息认证码",
+              "算法参数、密钥引用、输入数据、可选IV",
+              "认证码",
+              "使用对称密钥的数据认证计算"
+            ],
+            [
+              "对称加密",
+              "算法参数、密钥引用、IV、明文",
+              "密文",
+              "典型数据保护操作"
+            ],
+            [
+              "非对称加密",
+              "算法参数、公钥引用、明文",
+              "密文",
+              "面向小数据或密钥材料的公钥加密"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "2.4  密钥管理类功能分析"
+        },
+        {
+          "type": "paragraph",
+          "text": "密钥管理类是抗量子迁移场景中最重要的接口类别之一。传统系统中密钥管理包含密钥生成、导入、导出、销毁和查询；抗量子迁移中还须包含KEM封装、KEM解封装、传统密钥协商和混合密钥协商{{cite:38}}{{cite:9}}。混合密钥协商的本质目标是建立会话密钥或共享秘密，因此归入密钥管理类。如表2-4所示，密钥管理类覆盖密钥生命周期和密钥建立类流程。"
+        },
+        {
+          "type": "table",
+          "caption": "表2-4  密钥管理类功能分析",
+          "headers": [
+            "功能项",
+            "功能说明",
+            "抗量子迁移语义"
+          ],
+          "rows": [
+            [
+              "密钥对生成",
+              "生成传统或抗量子公私钥对",
+              "支持传统签名、抗量子签名和KEM"
+            ],
+            [
+              "密钥导入导出",
+              "在外部材料和设备内部引用之间转换",
+              "适配不同设备密钥存储方式"
+            ],
+            [
+              "KEM封装/解封装",
+              "通过公钥和私钥建立共享秘密",
+              "抗量子密钥建立核心能力"
+            ],
+            [
+              "混合密钥协商",
+              "组合传统算法和抗量子算法产生共享秘密",
+              "支持迁移期双重保护"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "2.5  数字签名类功能分析"
+        },
+        {
+          "type": "paragraph",
+          "text": "数字签名类独立于密码运算类，因为签名操作具有明确的身份认证和不可否认性语义，不等同于普通非对称加密的逆操作。抗量子迁移阶段签名类还需支持混合签名和混合验签。如表2-5所示，数字签名类将普通签名、摘要签名和混合签名纳入同一类语义。"
+        },
+        {
+          "type": "table",
+          "caption": "表2-5  数字签名类功能分析",
+          "headers": [
+            "功能项",
+            "功能说明",
+            "设计要点"
+          ],
+          "rows": [
+            [
+              "普通签名",
+              "对原始数据进行签名",
+              "由算法参数决定是否内部杂凑"
+            ],
+            [
+              "普通验签",
+              "验证原始数据和签名结果",
+              "返回统一成功或失败状态"
+            ],
+            [
+              "摘要签名",
+              "对外部已计算摘要签名",
+              "适配上层协议已完成摘要的场景"
+            ],
+            [
+              "混合签名",
+              "同时产生传统签名和抗量子签名分量",
+              "服务迁移期双算法保护"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "2.6  日志与审计"
+        },
+        {
+          "type": "paragraph",
+          "text": "日志系统贯穿四类接口，记录请求编号、接口类别、动作、算法、设备选择、执行结果和错误信息，为测试和问题定位提供依据。如图2-2所示，日志信息在客户端调用、统一封装、调度选择和适配执行等环节产生。日志系统不记录明文密钥材料和敏感口令。"
+        },
+        {
+          "type": "svg",
+          "caption": "图2-2  日志与审计信息流",
+          "path": "images/ch2_log_audit_flow.svg"
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "title": "3  统一密码服务接口设计",
+      "blocks": [
+        {
+          "type": "heading2",
+          "title": "3.1  总体架构设计"
+        },
+        {
+          "type": "paragraph",
+          "text": "统一密码服务接口采用三层分离设计。该设计参考服务化系统中接口边界稳定、内部组件可替换和服务粒度受控的思想{{cite:37}}{{cite:30}}{{cite:31}}。客户端封装层面向业务应用，提供C语言函数接口（CCM_*系列），将结构化参数转换为JSON统一请求；网关调度层接收请求后执行PIN认证、能力匹配、设备选择；适配器层将统一语义转换为具体设备可执行的调用。三层之间通过本地socket通信完成进程间请求与响应。该设计借鉴了分层服务、开放接口和可替换适配的思想{{cite:39}}{{cite:40}}，使上层业务接口与后端设备接口保持隔离{{cite:32}}{{cite:33}}。"
+        },
+        {
+          "type": "paragraph",
+          "text": "如图3-1所示，业务应用不直接调用经典密码机或抗量子设备，而是通过客户端封装层进入统一语义层，再由调度层和适配器层完成设备选择与调用转换。"
+        },
+        {
+          "type": "svg",
+          "caption": "图3-1  统一密码服务接口总体架构",
+          "path": "images/ch3_overall_architecture.svg"
+        },
+        {
+          "type": "heading2",
+          "title": "3.2  内部语义模型设计"
+        },
+        {
+          "type": "paragraph",
+          "text": "内部语义模型是统一接口的核心。本文将一次密码服务操作抽象为四要素：算法参数说明算法标识、工作模式、填充方式、杂凑算法、安全级别以及必要的扩展参数；密钥引用说明密钥用途、来源、内部索引、会话句柄、外部密钥材料、密钥标识和设备标识；数据缓冲说明输入输出数据的位置和长度；动作标识说明本次操作类别。"
+        },
+        {
+          "type": "paragraph",
+          "text": "如图3-2所示，算法参数、密钥引用和数据缓冲共同构成统一请求语义。封装层将其转换为JSON请求字段后发送到网关，网关根据功能域、动作和算法完成能力匹配与设备选择。"
+        },
+        {
+          "type": "svg",
+          "caption": "图3-2  内部统一语义模型",
+          "path": "images/ch3_internal_semantic_model.svg"
+        },
+        {
+          "type": "paragraph",
+          "text": "如表3-1所示，内部语义字段的设计将所有上层差异压缩为少量固定结构中。"
+        },
+        {
+          "type": "table",
+          "caption": "表3-1  内部语义字段设计",
+          "headers": [
+            "语义字段",
+            "说明",
+            "设计作用"
+          ],
+          "rows": [
+            [
+              "算法参数",
+              "算法标识、工作模式、填充方式、杂凑算法、安全级别和扩展参数指针",
+              "统一传统算法和抗量子算法的表达方式"
+            ],
+            [
+              "密钥引用",
+              "算法标识、用途、来源类型、内部索引、会话句柄、外部密钥、密钥标识和设备标识",
+              "统一内部密钥、会话密钥、外部密钥和托管密钥的引用方式"
+            ],
+            [
+              "数据缓冲",
+              "数据指针和数据长度",
+              "统一输入输出数据的表达，不假设固定长度"
+            ],
+            [
+              "动作标识",
+              "签名、验签、加密、解密、封装、解封装和协商等",
+              "作为调度和适配映射依据"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "3.3  适配器层设计"
+        },
+        {
+          "type": "paragraph",
+          "text": "适配器层面向不同后端设备提供统一的处理入口。每类后端只需实现设备连接、密钥处理、密码运算、文件访问和抗量子处理等必要能力，调度层再根据设备配置选择相应适配器。这样可以把设备差异限制在适配器内部，避免上层接口随设备变化而频繁调整。适配器思想的核心是用稳定的目标接口屏蔽被适配对象的差异{{cite:39}}；在企业集成场景中，通道适配和消息转换也常用于隔离不同系统之间的协议和数据差异{{cite:40}}。因此，该思想适合本文中经典密码设备、智能密码钥匙、软件库和抗量子设备并存的场景。"
+        },
+        {
+          "type": "paragraph",
+          "text": "如图3-3所示，统一动作进入适配器层后，根据请求中的功能域字段路由到对应处理函数。"
+        },
+        {
+          "type": "svg",
+          "caption": "图3-3  适配器层映射关系",
+          "path": "images/ch3_adapter_mapping.svg"
+        },
+        {
+          "type": "heading2",
+          "title": "3.4  调度层设计"
+        },
+        {
+          "type": "paragraph",
+          "text": "调度层负责在多个已注册后端设备之间选择合适执行者。调度依据包括功能域（功能域）、动作（动作）、算法（算法）、设备能力声明、用户偏好（preference）和设备可用状态。系统支持五种偏好模式：BALANCED、SECURE、EFFICIENT、CLASSIC_FIRST和PQC_FIRST，分别对应不同的设备优先级排序策略。"
+        },
+        {
+          "type": "paragraph",
+          "text": "如图3-4所示，调度层从统一请求开始，依次完成请求解析、PIN检查、算法能力匹配、设备选择、翻译规则查询和统一响应返回。对于混合流程，调度层通过序列调度字段支持串行多步执行，每步指定独立的功能域:动作:device_type:算法组合。"
+        },
+        {
+          "type": "svg",
+          "caption": "图3-4  调度层处理流程",
+          "path": "images/ch3_scheduler_flow.svg"
+        },
+        {
+          "type": "paragraph",
+          "text": "如表3-2所示，调度层的输入输出具有明确边界。"
+        },
+        {
+          "type": "table",
+          "caption": "表3-2  调度层输入输出设计",
+          "headers": [
+            "项目",
+            "内容",
+            "说明"
+          ],
+          "rows": [
+            [
+              "输入",
+              "功能域、动作、算法、密钥引用、载荷、设备提示和偏好模式",
+              "来自统一请求JSON"
+            ],
+            [
+              "能力匹配",
+              "设备配置中声明的“功能域—动作—算法”组合",
+              "用于判断设备是否可执行该请求"
+            ],
+            [
+              "设备选择",
+              "按偏好排序候选设备，选取最优的可用设备",
+              "考虑安全分、效率分、优先级和并发量"
+            ],
+            [
+              "输出",
+              "已翻译的后端调用名、选中设备标识、执行结果",
+              "返回给客户端的统一响应"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "3.5  封装层设计"
+        },
+        {
+          "type": "paragraph",
+          "text": "封装层面向业务调用者，是统一密码服务接口最外层的C语言接口边界。封装层以CCM_前缀命名所有函数，负责检查参数合法性、将算法参数、密钥引用和数据缓冲转换为JSON请求字段，通过本地socket发送到网关，接收响应并将结果写回输出缓冲。"
+        },
+        {
+          "type": "paragraph",
+          "text": "如图3-5所示，封装层从C语言接口参数出发，依次完成参数检查、结构转换、请求发送、响应接收和结果写回。"
+        },
+        {
+          "type": "svg",
+          "caption": "图3-5  封装层处理流程",
+          "path": "images/ch3_wrapper_flow.svg"
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "title": "4  统一密码服务接口实现",
+      "blocks": [
+        {
+          "type": "heading2",
+          "title": "4.1  实现环境"
+        },
+        {
+          "type": "paragraph",
+          "text": "原型系统采用C11语言实现，运行环境为Linux。客户端与网关之间通过本地socket通信传递请求和响应，网关内部使用多线程工作池并发处理请求。构建系统使用Makefile，生成三个目标程序：crypto_gateway（网关服务端）、crypto_client（客户端程序）和test_runner（单元测试程序）。"
+        },
+        {
+          "type": "paragraph",
+          "text": "如表4-1所示，系统实现环境的关键要素如下。"
+        },
+        {
+          "type": "table",
+          "caption": "表4-1  系统实现环境",
+          "headers": [
+            "项目",
+            "内容",
+            "说明"
+          ],
+          "rows": [
+            [
+              "开发语言",
+              "C11",
+              "便于对接密码设备SDK的C接口"
+            ],
+            [
+              "通信方式",
+              "本地socket（流式连接）",
+              "承载JSON请求和响应"
+            ],
+            [
+              "并发模型",
+              "任务队列与工作线程",
+              "支持多客户端请求处理"
+            ],
+            [
+              "构建工具",
+              "Makefile",
+              "统一生成网关、客户端和测试程序"
+            ],
+            [
+              "真实硬件",
+              "GM3000智能密码钥匙",
+              "通过运行时加载厂商库实现SKF适配"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "4.2  核心数据结构实现"
+        },
+        {
+          "type": "paragraph",
+          "text": "系统核心数据结构分为上层接口结构和内部通信结构两层。上层接口结构面向业务调用者，主要包括算法参数、密钥引用和数据缓冲；内部通信结构面向网关调度，保存请求编号、功能域、动作、算法、密钥引用、数据载荷、设备提示、认证信息、偏好模式和序列调度信息。如图4-1所示，上层结构经封装层转换为统一请求字段，再由调度层解析为设备调用参数。"
+        },
+        {
+          "type": "svg",
+          "caption": "图4-1  接口数据结构关系",
+          "path": "images/ch4_data_structures.svg"
+        },
+        {
+          "type": "paragraph",
+          "text": "如表4-2所示，核心结构字段设计如下。"
+        },
+        {
+          "type": "table",
+          "caption": "表4-2  核心接口数据结构",
+          "headers": [
+            "结构名称",
+            "字段",
+            "含义"
+          ],
+          "rows": [
+            [
+              "算法参数",
+              "uiAlgID",
+              "算法标识，用于区分SM2、SM3、SM4、ML-KEM、ML-DSA等"
+            ],
+            [
+              "算法参数",
+              "uiMode",
+              "分组密码工作模式，如ECB、CBC、CTR、GCM等"
+            ],
+            [
+              "算法参数",
+              "uiPadding",
+              "填充方式，如无填充、PKCS7、PSS、OAEP等"
+            ],
+            [
+              "算法参数",
+              "uiHashAlgID",
+              "与签名、验签或派生相关的杂凑算法标识"
+            ],
+            [
+              "算法参数",
+              "uiSecurityLevel",
+              "抗量子算法安全级别或参数集选择"
+            ],
+            [
+              "算法参数",
+              "pExParams",
+              "扩展参数指针，用于SM2身份信息、抗量子签名上下文等特殊参数"
+            ],
+            [
+              "密钥引用",
+              "uiAlgID",
+              "密钥对应的算法类型"
+            ],
+            [
+              "密钥引用",
+              "uiUsage",
+              "密钥用途，如签名、验签、加密、解密、封装、协商等"
+            ],
+            [
+              "密钥引用",
+              "uiSource",
+              "密钥来源，如内部索引、会话句柄、外部密钥或托管密钥"
+            ],
+            [
+              "密钥引用",
+              "uiKeyIndex",
+              "设备内部密钥索引"
+            ],
+            [
+              "密钥引用",
+              "hKeyHandle / pExternalKey",
+              "会话密钥句柄或外部密钥材料指针"
+            ],
+            [
+              "密钥引用",
+              "szKeyId / szDeviceId",
+              "密钥标识和目标设备标识"
+            ],
+            [
+              "数据缓冲",
+              "pucData",
+              "输入或输出数据指针"
+            ],
+            [
+              "数据缓冲",
+              "uiDataLen",
+              "输入或输出数据长度（字节）"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "4.3  通信协议实现"
+        },
+        {
+          "type": "paragraph",
+          "text": "客户端和网关之间使用单行JSON协议通信。每次请求为一行JSON文本加换行符，响应同样为一行JSON加换行符，连接在响应后关闭。网关主线程运行连接接收循环，每接收一个连接即读取JSON请求、解析为内部请求结构并推入有界阻塞队列；工作线程从队列中取出任务执行调度流程，并将统一响应写回客户端。"
+        },
+        {
+          "type": "paragraph",
+          "text": "如图4-2所示，一次完整调用从业务代码开始，经过CCM API封装、Socket发送、网关解析、调度选择、翻译规则查询、适配器执行和结果返回。"
+        },
+        {
+          "type": "svg",
+          "caption": "图4-2  客户端到密码设备调用链路",
+          "path": "images/ch4_call_execution_chain.svg"
+        },
+        {
+          "type": "heading2",
+          "title": "4.4  功能实现"
+        },
+        {
+          "type": "heading3",
+          "title": "4.4.1  环境类接口实现"
+        },
+        {
+          "type": "paragraph",
+          "text": "环境类接口实现服务上下文管理和基础能力。CCM_Initialize建立客户端上下文，CCM_Login通过发送AUTH/check_pin动作验证网关口令，CCM_GetCapability查询设备注册表中所有已声明能力。如表4-3所示，环境类接口原型及说明如下。"
+        },
+        {
+          "type": "table",
+          "caption": "表4-3  环境类接口实现说明",
+          "headers": [
+            "接口原型",
+            "功能描述",
+            "主要参数"
+          ],
+          "rows": [
+            [
+              "int CCM_Initialize(void *phContext);",
+              "初始化统一密码服务上下文",
+              "phContext为输出上下文指针"
+            ],
+            [
+              "int CCM_Finalize(void *hContext);",
+              "释放统一密码服务上下文",
+              "hContext为服务上下文"
+            ],
+            [
+              "int CCM_GetVersion(char *szVersion, unsigned int *puiVersionLen);",
+              "获取接口版本",
+              "输出版本字符串和长度"
+            ],
+            [
+              "int CCM_Login(void *hSession, const char *szUserName, const char *szPin);",
+              "完成网关侧PIN认证",
+              "会话、用户名、网关口令"
+            ],
+            [
+              "int CCM_GetCapability(void *hSession, Unif_Buffer *pCapabilityOut);",
+              "查询统一服务能力",
+              "能力输出缓冲区"
+            ],
+            [
+              "int CCM_GenerateRandom(void *hSession, unsigned int uiLength, unsigned char *pucRandom);",
+              "生成随机数",
+              "随机数长度和输出缓冲区"
+            ]
+          ]
+        },
+        {
+          "type": "heading3",
+          "title": "4.4.2  密码运算类接口实现"
+        },
+        {
+          "type": "paragraph",
+          "text": "密码运算类接口使用统一的算法参数和数据缓冲实现杂凑、MAC、对称加解密和非对称加解密。封装层将uiAlgID映射为请求中的算法字符串（如sm3、sm4-cbc、sm2），由网关侧翻译规则表确定具体后端函数名。如表4-4所示。"
+        },
+        {
+          "type": "table",
+          "caption": "表4-4  密码运算类接口实现说明",
+          "headers": [
+            "接口原型",
+            "功能描述",
+            "后端映射示例"
+          ],
+          "rows": [
+            [
+              "int CCM_Hash(...);",
+              "一次性杂凑计算",
+              "SDF_HashInit + SDF_HashUpdate + SDF_HashFinal"
+            ],
+            [
+              "int CCM_HashInit/Update/Final(...);",
+              "分步杂凑",
+              "SDF_HashInit / SDF_HashUpdate / SDF_HashFinal"
+            ],
+            [
+              "int CCM_Mac(...);",
+              "计算消息认证码",
+              "SDF_CalculateMAC"
+            ],
+            [
+              "int CCM_SymEncrypt(...);",
+              "对称加密",
+              "SDF_Encrypt"
+            ],
+            [
+              "int CCM_SymDecrypt(...);",
+              "对称解密",
+              "SDF_Decrypt"
+            ],
+            [
+              "int CCM_AsymEncrypt(...);",
+              "非对称加密",
+              "SDF_InternalEncrypt_ECC_Ex / SKF_ECCEncrypt"
+            ],
+            [
+              "int CCM_AsymDecrypt(...);",
+              "非对称解密",
+              "SDF_InternalDecrypt_ECC_Ex / SKF_ECCDecrypt"
+            ]
+          ]
+        },
+        {
+          "type": "heading3",
+          "title": "4.4.3  密钥管理类接口实现"
+        },
+        {
+          "type": "paragraph",
+          "text": "密钥管理类接口覆盖密钥生命周期管理和密钥建立流程。如图4-3所示，密钥导入流程从外部密钥材料开始，经过算法检查、用途检查、密钥引用建立、目标设备写入和审计记录。"
+        },
+        {
+          "type": "svg",
+          "caption": "图4-3  密钥导入流程",
+          "path": "images/ch4_import_key_flow.svg"
+        },
+        {
+          "type": "paragraph",
+          "text": "如表4-5所示，密钥管理类接口覆盖密钥生成、导入导出、KEM和协商功能。"
+        },
+        {
+          "type": "table",
+          "caption": "表4-5  密钥管理类接口实现说明",
+          "headers": [
+            "接口原型",
+            "功能描述",
+            "后端映射示例"
+          ],
+          "rows": [
+            [
+              "int CCM_GenerateKeyPair(...);",
+              "生成公私钥对",
+              "SDF_GenerateKeyPair_ECC / SKF_GenECCKeyPair"
+            ],
+            [
+              "int CCM_ImportKey(...);",
+              "导入密钥材料",
+              "SDF_ImportKey / SKF_ImportECCKeyPair"
+            ],
+            [
+              "int CCM_ExportPublicKey(...);",
+              "导出公钥",
+              "SDF_ExportSignPublicKey_ECC / SKF_ExportPublicKey"
+            ],
+            [
+              "int CCM_KemEncapsulate(...);",
+              "KEM封装",
+              "SDF_Encap_Kyber（PQC适配器）"
+            ],
+            [
+              "int CCM_KemDecapsulate(...);",
+              "KEM解封装",
+              "SDF_Decap_Kyber（PQC适配器）"
+            ],
+            [
+              "int CCM_KeyAgreementInit(...);",
+              "初始化密钥协商",
+              "SDF_GenerateAgreementDataWithECC"
+            ],
+            [
+              "int CCM_HybridKeyAgreement(...);",
+              "混合密钥协商",
+              "通过sequence串行调度经典+PQC两步"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "如图4-4所示，密钥协商初始化阶段读取本端身份和私钥，选择协商算法，生成临时公钥材料并输出协商数据。"
+        },
+        {
+          "type": "svg",
+          "caption": "图4-4  密钥协商初始化流程",
+          "path": "images/ch4_key_agreement_init_flow.svg"
+        },
+        {
+          "type": "heading3",
+          "title": "4.4.4  数字签名类接口实现"
+        },
+        {
+          "type": "paragraph",
+          "text": "数字签名类接口实现签名、验签、摘要签名、摘要验签、混合签名和混合验签。混合签名通过序列调度机制串行调度传统签名设备和抗量子签名设备，格式为\"asym:sign:classic:sm2>pqc:sign:pqc:dilithium3\"。如图4-5所示，普通验签流程包括输入原文、输入签名数据、定位公钥、执行验签和返回结果。"
+        },
+        {
+          "type": "svg",
+          "caption": "图4-5  验签流程",
+          "path": "images/ch4_verify_flow.svg"
+        },
+        {
+          "type": "paragraph",
+          "text": "如图4-6所示，混合验签将传统签名分量和抗量子签名分量分别路由到对应后端验签，最终由策略合并结果。"
+        },
+        {
+          "type": "svg",
+          "caption": "图4-6  混合验签流程",
+          "path": "images/ch4_hybrid_verify_flow.svg"
+        },
+        {
+          "type": "paragraph",
+          "text": "如表4-6所示，数字签名类接口原型及后端映射如下。"
+        },
+        {
+          "type": "table",
+          "caption": "表4-6  数字签名类接口实现说明",
+          "headers": [
+            "接口原型",
+            "功能描述",
+            "后端映射示例"
+          ],
+          "rows": [
+            [
+              "int CCM_Sign(...);",
+              "普通签名",
+              "SDF_InternalSign_ECC_Ex / SKF_ECCSignData"
+            ],
+            [
+              "int CCM_Verify(...);",
+              "普通验签",
+              "SDF_InternalVerify_ECC_Ex / SKF_ECCVerify"
+            ],
+            [
+              "int CCM_SignDigest(...);",
+              "摘要签名",
+              "SDF_InternalSign_ECC_Ex（输入为摘要）"
+            ],
+            [
+              "int CCM_HybridSign(...);",
+              "混合签名",
+              "sequence: SDF_InternalSign_ECC_Ex > SDF_Sign_Dilithium"
+            ],
+            [
+              "int CCM_HybridVerify(...);",
+              "混合验签",
+              "sequence: SDF_InternalVerify_ECC_Ex > SDF_Verify_Dilithium"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "4.5  GM3000硬件适配器实现"
+        },
+        {
+          "type": "paragraph",
+          "text": "系统实现了面向GM3000智能密码钥匙的真实硬件适配器（skf_adapter.c，约890行）。该适配器通过dlopen在运行时加载厂商提供的动态链接库，使用dlsym解析约35个SKF API函数指针，支持设备枚举、连接、应用打开、PIN验证、容器管理和密码运算全流程。GM3000适配器实现了内部七个域处理器，覆盖SM2签名验签、SM4加解密、SM3杂凑、密钥对生成和随机数生成功能。"
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "title": "5  接口测试",
+      "blocks": [
+        {
+          "type": "heading2",
+          "title": "5.1  测试环境"
+        },
+        {
+          "type": "paragraph",
+          "text": "接口测试围绕四类功能展开，测试终端直接显示接口类别、接口名称、关键参数和执行结果。如表5-1所示，测试环境配置如下。"
+        },
+        {
+          "type": "table",
+          "caption": "表5-1  测试环境说明",
+          "headers": [
+            "测试项",
+            "内容",
+            "说明"
+          ],
+          "rows": [
+            [
+              "运行环境",
+              "Linux云主机",
+              "运行统一密码服务接口原型系统"
+            ],
+            [
+              "开发语言",
+              "C11",
+              "实现接口封装、调度和适配逻辑"
+            ],
+            [
+              "构建方式",
+              "make clean && make bin/test_runner && make test",
+              "编译并执行10个单元测试用例"
+            ],
+            [
+              "端到端测试",
+              "启动gateway进程后通过crypto_client发送请求",
+              "验证完整调用链路"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "5.2  测试项目"
+        },
+        {
+          "type": "paragraph",
+          "text": "测试项目按四类接口组织，单元测试验证接口参数构造、JSON协议解析、设备调度选择和适配器路由的正确性；端到端测试验证从客户端到真实/模拟设备的完整链路。如表5-2所示，具体测试内容如下。"
+        },
+        {
+          "type": "table",
+          "caption": "表5-2  四类接口测试项目",
+          "headers": [
+            "测试类别",
+            "测试内容",
+            "验证目标"
+          ],
+          "rows": [
+            [
+              "环境类接口测试",
+              "初始化、版本查询、登录（PIN认证）、能力查询、随机数生成",
+              "统一服务上下文和PIN认证机制"
+            ],
+            [
+              "密码运算类接口测试",
+              "SM3杂凑、SM4-CBC对称加解密、SM2非对称加解密",
+              "算法参数统一表达和设备路由"
+            ],
+            [
+              "密钥管理类接口测试",
+              "密钥导入、ML-KEM-768 KEM封装、SM2密钥协商、混合密钥协商",
+              "KEM和协商归入密钥管理类的合理性"
+            ],
+            [
+              "数字签名类接口测试",
+              "SM2签名验签、Dilithium3签名验签、混合序列签名验签",
+              "混合签名的序列调度机制"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "5.3  环境类接口测试"
+        },
+        {
+          "type": "paragraph",
+          "text": "环境类接口测试验证统一密码服务运行基础。测试覆盖CCM_Initialize、CCM_GetVersion、CCM_Login和CCM_GenerateRandom等接口，确认服务上下文可正常建立、PIN认证可区分正确和错误口令。如图5-1所示为环境类接口测试终端输出。"
+        },
+        {
+          "type": "image",
+          "caption": "图5-1  环境类接口测试终端截图",
+          "path": "images/ch5_environment_interface_test.png"
+        },
+        {
+          "type": "paragraph",
+          "text": "如表5-3所示，环境类接口测试明细如下。"
+        },
+        {
+          "type": "table",
+          "caption": "表5-3  环境类接口测试明细",
+          "headers": [
+            "接口名称",
+            "关键参数",
+            "预期结果"
+          ],
+          "rows": [
+            [
+              "CCM_Initialize",
+              "phContext=&ctx",
+              "返回成功，上下文非空"
+            ],
+            [
+              "CCM_GetVersion",
+              "out=buffer, len=2048",
+              "返回成功，版本字符串非空"
+            ],
+            [
+              "CCM_Login",
+              "user=admin, pin=正确PIN",
+              "返回STATUS_OK(0)"
+            ],
+            [
+              "CCM_Login（错误PIN）",
+              "user=admin, pin=wrong",
+              "返回STATUS_UNAUTHORIZED(401)"
+            ],
+            [
+              "CCM_GenerateRandom",
+              "length=2048",
+              "返回成功，输出随机数据"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "5.4  密码运算类接口测试"
+        },
+        {
+          "type": "paragraph",
+          "text": "密码运算类接口测试验证数据处理能力。测试覆盖SM3杂凑、SM4-CBC对称加解密、SM2非对称加解密，确认算法参数可统一表达不同算法，设备路由正确选择classic-1设备。如图5-2所示为密码运算类接口测试终端输出。"
+        },
+        {
+          "type": "image",
+          "caption": "图5-2  密码运算类接口测试终端截图",
+          "path": "images/ch5_crypto_operation_interface_test.png"
+        },
+        {
+          "type": "paragraph",
+          "text": "如表5-4所示，密码运算类接口测试明细如下。"
+        },
+        {
+          "type": "table",
+          "caption": "表5-4  密码运算类接口测试明细",
+          "headers": [
+            "接口名称",
+            "关键参数",
+            "预期结果"
+          ],
+          "rows": [
+            [
+              "CCM_Hash",
+              "alg=SM3, data=\"abc\"",
+              "成功，路由到classic-1，调用SDF_Hash"
+            ],
+            [
+              "CCM_Mac",
+              "alg=SM4-MAC, key_index=1, iv_len=16",
+              "成功，调用SDF_CalculateMAC"
+            ],
+            [
+              "CCM_SymEncrypt",
+              "alg=SM4-CBC, key_index=1, iv_len=16",
+              "成功，调用SDF_Encrypt"
+            ],
+            [
+              "CCM_AsymDecrypt",
+              "alg=SM2, key_index=1",
+              "成功，调用SDF_InternalDecrypt_ECC_Ex"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "5.5  密钥管理类接口测试"
+        },
+        {
+          "type": "paragraph",
+          "text": "密钥管理类接口测试验证密钥生命周期和抗量子密钥建立。测试覆盖密钥导入（Dilithium3）、KEM封装（ML-KEM-768）、SM2密钥协商初始化和混合密钥协商，确认KEM和协商操作可通过统一密钥管理语义表达。如图5-3所示为密钥管理类接口测试终端输出。"
+        },
+        {
+          "type": "image",
+          "caption": "图5-3  密钥管理类接口测试终端截图",
+          "path": "images/ch5_密钥处理ment_interface_test.png"
+        },
+        {
+          "type": "paragraph",
+          "text": "如表5-5所示，密钥管理类接口测试明细如下。"
+        },
+        {
+          "type": "table",
+          "caption": "表5-5  密钥管理类接口测试明细",
+          "headers": [
+            "接口名称",
+            "关键参数",
+            "预期结果"
+          ],
+          "rows": [
+            [
+              "CCM_ImportKey",
+              "alg=DILITHIUM3, blob_len=3",
+              "成功，路由到pqc-1"
+            ],
+            [
+              "CCM_KemEncapsulate",
+              "alg=MLKEM768, pub_key_index=2",
+              "成功，调用SDF_Encap_Kyber"
+            ],
+            [
+              "CCM_KeyAgreementInit",
+              "alg=SM2, self_key_index=1",
+              "成功，调用SDF_GenerateAgreementDataWithECC"
+            ],
+            [
+              "CCM_HybridKeyAgreement",
+              "classic_key=1, pqc_key=2, alg=MLKEM768",
+              "成功，序列调度classic+pqc两步"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "5.6  数字签名类接口测试"
+        },
+        {
+          "type": "paragraph",
+          "text": "数字签名类接口测试验证签名语义的独立性和混合签名的可行性。测试覆盖SM2普通签名验签、Dilithium3抗量子签名以及混合序列签名，确认传统算法和抗量子算法可在同一数字签名类中统一表达。如图5-4所示为数字签名类接口测试终端输出。"
+        },
+        {
+          "type": "image",
+          "caption": "图5-4  数字签名类接口测试终端截图",
+          "path": "images/ch5_signature_interface_test.png"
+        },
+        {
+          "type": "paragraph",
+          "text": "如表5-6所示，数字签名类接口测试明细如下。"
+        },
+        {
+          "type": "table",
+          "caption": "表5-6  数字签名类接口测试明细",
+          "headers": [
+            "接口名称",
+            "关键参数",
+            "预期结果"
+          ],
+          "rows": [
+            [
+              "CCM_Sign",
+              "alg=SM2, priv_key_index=1, data=\"abc\"",
+              "成功，调用SDF_InternalSign_ECC_Ex"
+            ],
+            [
+              "CCM_Verify",
+              "alg=SM2, pub_key_index=1",
+              "成功，调用SDF_InternalVerify_ECC_Ex"
+            ],
+            [
+              "CCM_HybridSign",
+              "classic_alg=SM2, pqc_alg=DILITHIUM3",
+              "成功，序列为asym:sign:classic:sm2>pqc:sign:pqc:dilithium3"
+            ],
+            [
+              "CCM_HybridVerify",
+              "classic_alg=SM2, pqc_alg=DILITHIUM3",
+              "成功，两步验签均通过"
+            ]
+          ]
+        },
+        {
+          "type": "heading2",
+          "title": "5.7  测试结果分析"
+        },
+        {
+          "type": "paragraph",
+          "text": "单元测试和端到端测试均执行通过，测试终端显示全部用例通过。如图5-5所示为四类接口测试总览截图。"
+        },
+        {
+          "type": "image",
+          "caption": "图5-5  四类接口测试总览截图",
+          "path": "images/ch5_four_category_overview_test.png"
+        },
+        {
+          "type": "paragraph",
+          "text": "如表5-7所示，测试结果从四个维度验证了接口设计的有效性。"
+        },
+        {
+          "type": "table",
+          "caption": "表5-7  四类接口测试结果分析",
+          "headers": [
+            "测试类别",
+            "通过情况",
+            "结果分析"
+          ],
+          "rows": [
+            [
+              "环境类接口",
+              "全部通过，错误PIN正确返回401",
+              "PIN认证机制和上下文管理可靠"
+            ],
+            [
+              "密码运算类接口",
+              "全部通过，路由到classic-1设备",
+              "算法参数统一表达，设备选择机制有效"
+            ],
+            [
+              "密钥管理类接口",
+              "全部通过，KEM路由到pqc-1设备",
+              "KEM和混合协商可由密钥管理语义统一"
+            ],
+            [
+              "数字签名类接口",
+              "全部通过，混合序列正确串行执行",
+              "混合签名的跨设备序列调度可行"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "测试结果表明：四类接口划分能够覆盖传统密码和抗量子密码的主要能力；统一参数模型（算法参数+密钥引用+数据缓冲）足以表达所有测试场景的调用语义；序列调度机制使混合密钥协商和混合签名无需增加额外接口类别；设备选择算法可根据能力声明正确路由请求到classic或pqc后端。"
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "title": "总结与展望",
+      "blocks": [
+        {
+          "type": "heading2",
+          "title": "总结"
+        },
+        {
+          "type": "paragraph",
+          "text": "本文面向抗量子迁移场景，针对现有密码设备接口分散、抗量子算法逐步引入和多后端设备共存的问题，设计并实现了统一密码服务接口UCiSDK。主要工作和成果如下："
+        },
+        {
+          "type": "paragraph",
+          "text": "第一，分析了经典密码设备（GM/T 0018）、智能密码钥匙（GM/T 0016）、抗量子设备和软件库的接口差异，指出业务系统直接调用底层设备接口会造成强耦合和迁移困难，论证了统一中间层的必要性。"
+        },
+        {
+          "type": "paragraph",
+          "text": "第二，提出了四类接口划分方案，将统一密码服务能力划分为环境类（8个函数）、密码运算类（9个函数）、密钥管理类（11个函数）和数字签名类（6个函数），共34个函数，通过算法参数、密钥引用和数据缓冲三类统一结构承载密码操作语义。"
+        },
+        {
+          "type": "paragraph",
+          "text": "第三，设计了三层分离架构：客户端封装层提供CCM_系列C语言函数接口；网关调度层基于能力匹配和偏好策略选择后端设备；适配器层通过统一函数表将请求语义翻译为设备调用。通过翻译规则表实现后端类型、功能域、动作和算法到具体调用的映射。"
+        },
+        {
+          "type": "paragraph",
+          "text": "第四，使用C11语言实现了原型系统，通过本地socket和JSON协议实现进程间通信，已对接GM3000智能密码钥匙真实硬件，并通过模拟适配器覆盖经典SDF和抗量子设备能力。混合密钥协商和混合签名通过序列调度机制实现跨设备串行执行。"
+        },
+        {
+          "type": "paragraph",
+          "text": "第五，完成了单元测试和端到端测试，验证了四类接口在统一参数模型下的调用正确性、设备路由准确性和混合序列的可行性。"
+        },
+        {
+          "type": "heading2",
+          "title": "不足与展望"
+        },
+        {
+          "type": "paragraph",
+          "text": "本文工作仍存在如下不足：当前原型中经典SDF设备和抗量子设备采用模拟适配器，尚未对接真实服务器密码机；性能测试未展开吞吐量、延迟和并发数据；安全审计和权限控制机制尚不完整。"
+        },
+        {
+          "type": "paragraph",
+          "text": "未来工作可围绕三个方向展开：第一，对接真实多台服务器密码机（SDF设备），验证翻译规则和适配器在真实设备错误码、并发竞争和故障恢复场景下的表现；第二，引入更完整的抗量子参数集（如ML-KEM-1024、SLH-DSA-SHA2-128s等），扩展混合策略配置；第三，建设性能测试框架，测量不同算法、不同设备组合下的吞吐量和延迟，为生产部署提供依据。"
+        }
+      ]
+    }
+  ],
+  "references": [
+    "[1] 国家密码管理局.密码设备应用接口规范:GM/T 0018—2012[S].北京:中国标准出版社,2012.",
+    "[2] 国家密码管理局.智能密码钥匙密码应用接口规范:GM/T 0016—2012[S].北京:中国标准出版社,2012.",
+    "[3] Shor P W.Algorithms for Quantum Computation: Discrete Logarithms and Factoring[C]//Proceedings of the 35th Annual Symposium on Foundations of Computer Science.Santa Fe:IEEE,1994:124-134.",
+    "[4] Grover L K.A Fast Quantum Mechanical Algorithm for Database Search[C]//Proceedings of the 28th Annual ACM Symposium on Theory of Computing.New York:ACM,1996:212-219.",
+    "[5] National Institute of Standards and Technology.Module-Lattice-Based Key-Encapsulation Mechanism Standard:FIPS 203[S].Gaithersburg:National Institute of Standards and Technology,2024.",
+    "[6] National Institute of Standards and Technology.Module-Lattice-Based Digital Signature Standard:FIPS 204[S].Gaithersburg:National Institute of Standards and Technology,2024.",
+    "[7] National Institute of Standards and Technology.Stateless Hash-Based Digital Signature Standard:FIPS 205[S].Gaithersburg:National Institute of Standards and Technology,2024.",
+    "[8] Alagic G,Apon D,Cooper D,et al.Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process:NIST IR 8413-upd1[R].Gaithersburg:National Institute of Standards and Technology,2022.",
+    "[9] National Institute of Standards and Technology.Recommendation for Key Management: Part 1-General:SP 800-57 Part 1 Rev.5[S].Gaithersburg:National Institute of Standards and Technology,2020.",
+    "[10] National Institute of Standards and Technology.Transitioning the Use of Cryptographic Algorithms and Key Lengths:SP 800-131A Rev.2[S].Gaithersburg:National Institute of Standards and Technology,2019.",
+    "[11] Rescorla E.The Transport Layer Security (TLS) Protocol Version 1.3:RFC 8446[S].Fremont:Internet Engineering Task Force,2018.",
+    "[12] Cooper D,Santesson S,Farrell S,et al.Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile:RFC 5280[S].Fremont:Internet Engineering Task Force,2008.",
+    "[13] Housley R.Cryptographic Message Syntax (CMS):RFC 5652[S].Fremont:Internet Engineering Task Force,2009.",
+    "[14] Moriarty K,Kaliski B,Jonsson J,et al.PKCS #1: RSA Cryptography Specifications Version 2.2:RFC 8017[S].Fremont:Internet Engineering Task Force,2016.",
+    "[15] Bos J W,Ducas L,Kiltz E,et al.CRYSTALS-Kyber: A CCA-Secure Module-Lattice-Based KEM[C]//2018 IEEE European Symposium on Security and Privacy.San Francisco:IEEE,2018:353-367.",
+    "[16] Ducas L,Kiltz E,Lepoint T,et al.CRYSTALS-Dilithium: A Lattice-Based Digital Signature Scheme[J].IACR Transactions on Cryptographic Hardware and Embedded Systems,2018(1):238-268.",
+    "[17] Bernstein D J,Hülsing A,Kölbl S,et al.The SPHINCS+ Signature Framework[C]//Proceedings of the 2019 ACM SIGSAC Conference on Computer and Communications Security.New York:ACM,2019:2129-2146.",
+    "[18] 全国人民代表大会常务委员会.中华人民共和国密码法[Z].2019.",
+    "[19] 中华人民共和国国务院.商用密码管理条例[Z].2023.",
+    "[20] 全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM2椭圆曲线公钥密码算法 第1部分:总则:GB/T 32918.1—2016[S].北京:中国标准出版社,2016.",
+    "[21] 全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM2椭圆曲线公钥密码算法 第2部分:数字签名算法:GB/T 32918.2—2016[S].北京:中国标准出版社,2016.",
+    "[22] 全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM2椭圆曲线公钥密码算法 第3部分:密钥交换协议:GB/T 32918.3—2016[S].北京:中国标准出版社,2016.",
+    "[23] 全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM2椭圆曲线公钥密码算法 第4部分:公钥加密算法:GB/T 32918.4—2016[S].北京:中国标准出版社,2016.",
+    "[24] 汪朝晖.SM2椭圆曲线公钥密码算法[J].信息安全研究,2016,2(11):972-982.",
+    "[25] 全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM3密码杂凑算法:GB/T 32905—2016[S].北京:中国标准出版社,2016.",
+    "[26] 王小云.SM3密码杂凑算法[J].信息安全研究,2016,2(11):983-994.",
+    "[27] 全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM4分组密码算法:GB/T 32907—2016[S].北京:中国标准出版社,2016.",
+    "[28] 全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 密码模块安全要求:GB/T 37092—2018[S].北京:中国标准出版社,2018.",
+    "[29] 全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 信息系统密码应用基本要求:GB/T 39786—2021[S].北京:中国标准出版社,2021.",
+    "[30] Hannousse A,Yahiouche S.Securing Microservices and Microservice Architectures: A Systematic Mapping Study[EB/OL].(2020-03-16)[2026-05-19].https://arxiv.org/abs/2003.07262.",
+    "[31] Hassan S,Bahsoon R,Kazman R.Microservice Transition and its Granularity Problem: A Systematic Mapping Study[EB/OL].(2019-03-27)[2026-05-19].https://arxiv.org/abs/1903.11665.",
+    "[32] 国家市场监督管理总局,国家标准化管理委员会.工业互联网平台 微服务参考框架:GB/T 42568—2023[S].北京:中国标准出版社,2023.",
+    "[33] 国家市场监督管理总局,国家标准化管理委员会.工业互联网平台 开放应用编程接口功能要求:GB/T 42569—2023[S].北京:中国标准出版社,2023.",
+    "[34] 国家市场监督管理总局,国家标准化管理委员会.信息安全技术 移动互联网应用程序(App)软件开发工具包(SDK)安全要求:GB/T 43435—2023[S].北京:中国标准出版社,2023.",
+    "[35] 国家市场监督管理总局,国家标准化管理委员会.信息安全技术 边缘计算安全技术要求:GB/T 42564—2023[S].北京:中国标准出版社,2023.",
+    "[36] 国家市场监督管理总局,国家标准化管理委员会.信息安全技术 可信执行环境服务规范:GB/T 42572—2023[S].北京:中国标准出版社,2023.",
+    "[37] Seedat M,Abbas Q,Ahmad N.Systematic Mapping of Monolithic Applications to Microservices Architecture[EB/OL].(2023-09-07)[2026-05-19].https://arxiv.org/abs/2309.03796.",
+    "[38] National Institute of Standards and Technology.Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography:SP 800-56A Rev.3[S].Gaithersburg:National Institute of Standards and Technology,2018.",
+    "[39] Gamma E,Helm R,Johnson R,Vlissides J.Design Patterns: Elements of Reusable Object-Oriented Software[M].Reading:Addison-Wesley,1994.",
+    "[40] Hohpe G,Woolf B.Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions[M].Boston:Addison-Wesley,2003."
+  ]
+}
