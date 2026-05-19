@@ -3,39 +3,40 @@ import re
 import xml.etree.ElementTree as ET
 
 NS = {'svg': 'http://www.w3.org/2000/svg'}
-BAD_WORDS = ['device_manage','key_manage','asym_crypto','sym_crypto','hash_ops','file_ops','pqc_ops']
-MAX_TEXT_LEN = 18
+MAX_TEXT_LEN = 12
+FORBIDDEN = ['device_manage','key_manage','asym_crypto','sym_crypto','hash_ops','file_ops','pqc_ops']
 
-def visible_text(root):
-    for node in root.findall('.//svg:text', NS):
-        txt = ''.join(node.itertext()).strip()
-        if txt:
-            yield txt
-
-def num(v):
+def fnum(v):
     return float(str(v).replace('px',''))
 
-def check_file(path: Path):
+def check(path: Path):
     raw = path.read_text(encoding='utf-8')
-    for bad in BAD_WORDS:
-        assert bad not in raw, f'{path}: contains English handler {bad}'
-    assert not re.search(r'<path[^>]+d="[^"]*[CQSTAqcsta][^"]*"', raw), f'{path}: contains curved path'
+    for bad in FORBIDDEN:
+        assert bad not in raw, f'{path}: forbidden English handler {bad}'
+    assert not re.search(r'<path[^>]+d="[^"]*[CQSTAqcsta][^"]*"', raw), f'{path}: curved path exists'
     root = ET.fromstring(raw)
-    for txt in visible_text(root):
-        compact = re.sub(r'\s+', '', txt)
-        assert len(compact) <= MAX_TEXT_LEN, f'{path}: text too long: {txt}'
-    for line in root.findall('.//svg:line', NS):
-        x1, y1 = num(line.get('x1')), num(line.get('y1'))
-        x2, y2 = num(line.get('x2')), num(line.get('y2'))
-        assert x1 == x2 or y1 == y2, f'{path}: diagonal line {x1},{y1}->{x2},{y2}'
+    for text in root.findall('.//svg:text', NS):
+        s = ''.join(text.itertext()).strip()
+        if not s:
+            continue
+        compact = re.sub(r'\s+', '', s)
+        assert len(compact) <= MAX_TEXT_LEN, f'{path}: text too long: {s}'
+        fs = float(text.get('font-size', '20'))
+        y = fnum(text.get('y'))
+        # Text baseline must not sit on a horizontal rule. This catches the Chinese-height overlap problem.
+        for ln in root.findall('.//svg:line', NS):
+            x1, y1, x2, y2 = map(lambda k: fnum(ln.get(k)), ['x1','y1','x2','y2'])
+            if y1 == y2 and abs(y - y1) < fs * 0.9:
+                raise AssertionError(f'{path}: text baseline too close to horizontal line: {s}')
+            assert x1 == x2 or y1 == y2, f'{path}: diagonal line {x1},{y1}->{x2},{y2}'
     for poly in root.findall('.//svg:polyline', NS):
         pts = []
         for part in poly.get('points','').split():
             x, y = part.split(',')
-            pts.append((num(x), num(y)))
+            pts.append((float(x), float(y)))
         for (x1,y1),(x2,y2) in zip(pts, pts[1:]):
             assert x1 == x2 or y1 == y2, f'{path}: diagonal polyline {x1},{y1}->{x2},{y2}'
 
-for f in sorted(Path('images').glob('*.svg')):
-    check_file(f)
+for svg in sorted(Path('images').glob('*.svg')):
+    check(svg)
 print('SVG layout checks passed')

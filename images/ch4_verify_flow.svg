@@ -1,19 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520">
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560">
   <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L7,3 z" fill="#000000"/></marker></defs>
-  <rect x="0" y="0" width="900" height="520" fill="#ffffff"/>
-  <text x="450.0" y="38" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" fill="#000000">验签流程</text>
-  <rect x="260" y="78" width="380" height="52" fill="#f7f7f7" stroke="#000000" stroke-width="1.3"/>
-  <text x="450.0" y="112" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" fill="#000000">输入数据</text>
-  <line x1="450.0" y1="130" x2="450.0" y2="166" stroke="#000000" stroke-width="1.3" marker-end="url(#arrow)"/>
-  <rect x="260" y="166" width="380" height="52" fill="#ffffff" stroke="#000000" stroke-width="1.3"/>
-  <text x="450.0" y="200" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" fill="#000000">输入签名</text>
-  <line x1="450.0" y1="218" x2="450.0" y2="254" stroke="#000000" stroke-width="1.3" marker-end="url(#arrow)"/>
-  <rect x="260" y="254" width="380" height="52" fill="#f7f7f7" stroke="#000000" stroke-width="1.3"/>
-  <text x="450.0" y="288" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" fill="#000000">选择算法</text>
-  <line x1="450.0" y1="306" x2="450.0" y2="342" stroke="#000000" stroke-width="1.3" marker-end="url(#arrow)"/>
-  <rect x="260" y="342" width="380" height="52" fill="#ffffff" stroke="#000000" stroke-width="1.3"/>
-  <text x="450.0" y="376" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" fill="#000000">设备验签</text>
-  <line x1="450.0" y1="394" x2="450.0" y2="430" stroke="#000000" stroke-width="1.3" marker-end="url(#arrow)"/>
-  <rect x="260" y="430" width="380" height="52" fill="#f7f7f7" stroke="#000000" stroke-width="1.3"/>
-  <text x="450.0" y="464" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" fill="#000000">返回结果</text>
+  <rect x="0" y="0" width="900" height="560" fill="#ffffff"/>
+  <text x="450.0" y="40" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" fill="#000000">验签流程</text>
+  <rect x="270" y="90" width="360" height="64" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
+  <text x="450.0" y="122.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">输入数据</text>
+  <line x1="450.0" y1="154" x2="450.0" y2="186" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="270" y="186" width="360" height="64" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
+  <text x="450.0" y="218.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">输入签名</text>
+  <line x1="450.0" y1="250" x2="450.0" y2="282" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="270" y="282" width="360" height="64" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
+  <text x="450.0" y="314.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">选择算法</text>
+  <line x1="450.0" y1="346" x2="450.0" y2="378" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="270" y="378" width="360" height="64" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
+  <text x="450.0" y="410.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">设备验签</text>
+  <line x1="450.0" y1="442" x2="450.0" y2="474" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="270" y="474" width="360" height="64" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
+  <text x="450.0" y="506.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">返回结果</text>
 </svg>
