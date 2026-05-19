@@ -1,37 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="680" height="780" viewBox="0 0 680 780">
-<defs><marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#000"/></marker></defs>
-<rect width="100%" height="100%" fill="white"/>
-<!-- Title -->
-<text x="340" y="35" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="18" font-weight="bold">Client-to-Device Call Chain</text>
-<!-- Step 1 -->
-<rect x="210" y="60" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="340" y="90" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Business Code Calls CCM API</text>
-<line x1="340" y1="110" x2="340" y2="145" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
-<!-- Step 2 -->
-<rect x="210" y="145" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="340" y="175" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Wrapper: Param Check &amp; Convert</text>
-<line x1="340" y1="195" x2="340" y2="230" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
-<!-- Step 3 -->
-<rect x="210" y="230" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="340" y="260" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Build JSON Unified Request</text>
-<line x1="340" y1="280" x2="340" y2="315" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
-<!-- Step 4 -->
-<rect x="210" y="315" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="340" y="345" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Send via Unix Socket to Gateway</text>
-<line x1="340" y1="365" x2="340" y2="400" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
-<!-- Step 5 -->
-<rect x="210" y="400" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="340" y="430" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Gateway Parses &amp; Dispatches</text>
-<line x1="340" y1="450" x2="340" y2="485" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
-<!-- Step 6 -->
-<rect x="210" y="485" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="340" y="515" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Translation Layer Maps Backend</text>
-<line x1="340" y1="535" x2="340" y2="570" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
-<!-- Step 7 -->
-<rect x="210" y="570" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="340" y="600" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Adapter Calls Device Function</text>
-<line x1="340" y1="620" x2="340" y2="655" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
-<!-- Step 8 -->
-<rect x="210" y="655" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="340" y="685" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Unified Response to Business</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="720" viewBox="0 0 900 720">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L8,3 z" fill="#000000"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="720" fill="#ffffff"/>
+  <text x="450" y="42" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#000000">客户端到密码设备调用链路</text>
+  <rect x="280" y="85" width="340" height="48" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.2"/>
+  <text x="450.0" y="115.66666666666667" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">业务代码调用统一API</text>
+  <line x1="450" y1="133" x2="450" y2="160" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="280" y="160" width="340" height="48" rx="0" ry="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="450.0" y="190.66666666666666" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">封装层检查并转换参数</text>
+  <line x1="450" y1="208" x2="450" y2="235" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="280" y="235" width="340" height="48" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.2"/>
+  <text x="450.0" y="265.6666666666667" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">构造统一请求</text>
+  <line x1="450" y1="283" x2="450" y2="310" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="280" y="310" width="340" height="48" rx="0" ry="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="450.0" y="340.6666666666667" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">本地Socket发送</text>
+  <line x1="450" y1="358" x2="450" y2="385" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="280" y="385" width="340" height="48" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.2"/>
+  <text x="450.0" y="415.6666666666667" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">网关解析并分派</text>
+  <line x1="450" y1="433" x2="450" y2="460" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="280" y="460" width="340" height="48" rx="0" ry="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="450.0" y="490.6666666666667" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">调度层选择后端</text>
+  <line x1="450" y1="508" x2="450" y2="535" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="280" y="535" width="340" height="48" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.2"/>
+  <text x="450.0" y="565.6666666666666" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">适配器调用设备函数</text>
+  <line x1="450" y1="583" x2="450" y2="610" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="280" y="610" width="340" height="48" rx="0" ry="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="450.0" y="640.6666666666666" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">统一响应返回业务</text>
 </svg>

@@ -1,55 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="540" viewBox="0 0 720 540">
-<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#000"/></marker></defs>
-<rect width="100%" height="100%" fill="white"/>
-<text x="360" y="28" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="16" font-weight="bold">Classic vs Post-Quantum Device Capability Comparison</text>
-<!-- Left column: Classic -->
-<rect x="40" y="50" width="280" height="30" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="180" y="70" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="13" font-weight="bold">Classic Crypto Device</text>
-<rect x="40" y="90" width="280" height="30" fill="none" stroke="#000" stroke-width="1"/>
-<text x="180" y="110" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Key Generation (RSA/SM2/SM4)</text>
-<rect x="40" y="125" width="280" height="30" fill="none" stroke="#000" stroke-width="1"/>
-<text x="180" y="145" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Symmetric Encrypt/Decrypt (SM4/AES)</text>
-<rect x="40" y="160" width="280" height="30" fill="none" stroke="#000" stroke-width="1"/>
-<text x="180" y="180" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Asymmetric Encrypt/Decrypt (SM2/RSA)</text>
-<rect x="40" y="195" width="280" height="30" fill="none" stroke="#000" stroke-width="1"/>
-<text x="180" y="215" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Digital Signature (SM2/RSA)</text>
-<rect x="40" y="230" width="280" height="30" fill="none" stroke="#000" stroke-width="1"/>
-<text x="180" y="250" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Hash (SM3/SHA)</text>
-<rect x="40" y="265" width="280" height="30" fill="none" stroke="#000" stroke-width="1"/>
-<text x="180" y="285" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Key Agreement (SM2/ECDH)</text>
-<!-- Right column: PQC -->
-<rect x="400" y="50" width="280" height="30" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="540" y="70" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="13" font-weight="bold">Post-Quantum Crypto Device</text>
-<rect x="400" y="90" width="280" height="30" fill="none" stroke="#000" stroke-width="1"/>
-<text x="540" y="110" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Key Generation (ML-KEM/ML-DSA)</text>
-<rect x="400" y="125" width="280" height="30" fill="none" stroke="#000" stroke-width="1"/>
-<text x="540" y="145" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">KEM Encap/Decap (ML-KEM)</text>
-<rect x="400" y="160" width="280" height="30" fill="none" stroke="#000" stroke-width="1"/>
-<text x="540" y="180" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">PQC Signature (ML-DSA/SLH-DSA)</text>
-<rect x="400" y="195" width="280" height="30" fill="none" stroke="#000" stroke-width="1"/>
-<text x="540" y="215" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Hybrid Signature (SM2+ML-DSA)</text>
-<rect x="400" y="230" width="280" height="30" fill="none" stroke="#000" stroke-width="1"/>
-<text x="540" y="250" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Hybrid Key Agreement (ECDH+ML-KEM)</text>
-<rect x="400" y="265" width="280" height="30" fill="none" stroke="#000" stroke-width="1"/>
-<text x="540" y="285" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Hash (SM3/SHA-3)</text>
-<!-- Arrows down -->
-<line x1="180" y1="300" x2="180" y2="340" stroke="#000" stroke-width="1.2" marker-end="url(#arr)"/>
-<line x1="540" y1="300" x2="540" y2="340" stroke="#000" stroke-width="1.2" marker-end="url(#arr)"/>
-<!-- Common abstraction -->
-<rect x="80" y="340" width="560" height="35" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="360" y="363" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="13" font-weight="bold">Common Capability Abstraction</text>
-<!-- Abstracted capabilities -->
-<line x1="360" y1="375" x2="360" y2="400" stroke="#000" stroke-width="1.2" marker-end="url(#arr)"/>
-<rect x="60" y="400" width="130" height="35" fill="none" stroke="#000" stroke-width="1"/>
-<text x="125" y="422" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Key Generation</text>
-<rect x="200" y="400" width="130" height="35" fill="none" stroke="#000" stroke-width="1"/>
-<text x="265" y="422" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Data Protection</text>
-<rect x="340" y="400" width="130" height="35" fill="none" stroke="#000" stroke-width="1"/>
-<text x="405" y="422" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Sign &amp; Verify</text>
-<rect x="480" y="400" width="130" height="35" fill="none" stroke="#000" stroke-width="1"/>
-<text x="545" y="422" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Key Establishment</text>
-<!-- Arrow to unified model -->
-<line x1="360" y1="435" x2="360" y2="470" stroke="#000" stroke-width="1.2" marker-end="url(#arr)"/>
-<rect x="200" y="470" width="320" height="40" fill="none" stroke="#000" stroke-width="2"/>
-<text x="360" y="495" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="13" font-weight="bold">Unified Capability Model</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="620" viewBox="0 0 980 620">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L8,3 z" fill="#000000"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="980" height="620" fill="#ffffff"/>
+  <text x="490" y="42" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#000000">经典设备与抗量子设备能力对照</text>
+  <rect x="70" y="85" width="270" height="420" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.5"/>
+  <text x="205.0" y="119" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="bold" text-anchor="middle" fill="#000000">三未信安经典密码卡</text>
+  <text x="205.0" y="151" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">设备会话管理</text>
+  <text x="205.0" y="182" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">RSA/ECC密钥管理</text>
+  <text x="205.0" y="213" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">SM4等对称运算</text>
+  <text x="205.0" y="244" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">SM2/RSA签名验签</text>
+  <text x="205.0" y="275" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">SM3等杂凑运算</text>
+  <text x="205.0" y="306" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">用户文件操作</text>
+  <rect x="640" y="85" width="270" height="420" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.5"/>
+  <text x="775.0" y="119" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="bold" text-anchor="middle" fill="#000000">三未信安抗量子接口</text>
+  <text x="775.0" y="151" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">Kyber密钥生成</text>
+  <text x="775.0" y="182" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">Kyber封装/解封装</text>
+  <text x="775.0" y="213" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">Dilithium密钥生成</text>
+  <text x="775.0" y="244" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">Dilithium签名验签</text>
+  <text x="775.0" y="275" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">安全级别参数</text>
+  <text x="775.0" y="306" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">可变长度输出</text>
+  <rect x="365" y="155" width="250" height="275" rx="0" ry="0" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="490.0" y="189" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="bold" text-anchor="middle" fill="#000000">统一能力抽象</text>
+  <text x="490.0" y="221" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">环境管理</text>
+  <text x="490.0" y="252" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">密钥管理</text>
+  <text x="490.0" y="283" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">密码运算</text>
+  <text x="490.0" y="314" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">数字签名</text>
+  <text x="490.0" y="345" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">算法参数</text>
+  <text x="490.0" y="376" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">密钥引用</text>
+  <text x="490.0" y="407" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">数据缓冲</text>
+  <line x1="340" y1="205" x2="365" y2="205" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="340" y1="285" x2="365" y2="285" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="340" y1="365" x2="365" y2="365" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="615" y1="205" x2="640" y2="205" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="615" y1="285" x2="640" y2="285" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="615" y1="365" x2="640" y2="365" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="490" y="555" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="normal" text-anchor="middle" fill="#000000">统一接口不照搬厂商函数，而将不同设备函数映射为稳定的业务语义。</text>
 </svg>

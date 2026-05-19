@@ -1,45 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="680" height="480" viewBox="0 0 680 480">
-<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#000"/></marker></defs>
-<rect width="100%" height="100%" fill="white"/>
-<text x="340" y="28" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="16" font-weight="bold">Log and Audit Information Flow</text>
-<!-- Main flow (left side) -->
-<rect x="80" y="55" width="200" height="35" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="180" y="78" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="12">Client Call</text>
-<line x1="180" y1="90" x2="180" y2="115" stroke="#000" stroke-width="1.2" marker-end="url(#arr)"/>
-<rect x="80" y="120" width="200" height="35" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="180" y="143" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="12">Interface Wrapper Layer</text>
-<line x1="180" y1="155" x2="180" y2="180" stroke="#000" stroke-width="1.2" marker-end="url(#arr)"/>
-<rect x="80" y="185" width="200" height="35" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="180" y="208" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="12">Scheduler Layer</text>
-<line x1="180" y1="220" x2="180" y2="245" stroke="#000" stroke-width="1.2" marker-end="url(#arr)"/>
-<rect x="80" y="250" width="200" height="35" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="180" y="273" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="12">Adapter Layer</text>
-<line x1="180" y1="285" x2="180" y2="310" stroke="#000" stroke-width="1.2" marker-end="url(#arr)"/>
-<rect x="80" y="315" width="200" height="35" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="180" y="338" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="12">Device Execution</text>
-<!-- Log arrows (right side) -->
-<line x1="280" y1="137" x2="420" y2="137" stroke="#000" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#arr)"/>
-<line x1="280" y1="202" x2="420" y2="202" stroke="#000" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#arr)"/>
-<line x1="280" y1="267" x2="420" y2="267" stroke="#000" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#arr)"/>
-<line x1="280" y1="332" x2="420" y2="332" stroke="#000" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#arr)"/>
-<!-- Log store -->
-<rect x="420" y="100" width="200" height="260" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="520" y="125" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="12" font-weight="bold">Log Record Contents</text>
-<line x1="430" y1="135" x2="610" y2="135" stroke="#000" stroke-width="0.5"/>
-<text x="520" y="158" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Request ID</text>
-<text x="520" y="183" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Interface Category</text>
-<text x="520" y="208" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Action &amp; Algorithm</text>
-<text x="520" y="233" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Selected Device</text>
-<text x="520" y="258" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Backend Call Details</text>
-<text x="520" y="283" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Execution Result</text>
-<text x="520" y="308" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Error Information</text>
-<text x="520" y="340" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="10">(Key plaintext not logged)</text>
-<!-- Arrow down to outputs -->
-<line x1="520" y1="360" x2="520" y2="395" stroke="#000" stroke-width="1.2" marker-end="url(#arr)"/>
-<line x1="180" y1="350" x2="180" y2="395" stroke="#000" stroke-width="1.2" marker-end="url(#arr)"/>
-<!-- Outputs -->
-<rect x="80" y="400" width="200" height="35" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="180" y="423" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="12">Test Terminal Output</text>
-<rect x="420" y="400" width="200" height="35" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="520" y="423" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="12">Audit &amp; Troubleshooting</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L8,3 z" fill="#000000"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="560" fill="#ffffff"/>
+  <text x="450" y="42" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#000000">日志与审计信息流</text>
+  <rect x="70" y="105" width="130" height="70" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.2"/>
+  <text x="135.0" y="146.66666666666666" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">客户端调用</text>
+  <line x1="200" y1="140" x2="230" y2="140" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="230" y="105" width="130" height="70" rx="0" ry="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="295.0" y="146.66666666666666" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">封装层校验</text>
+  <line x1="360" y1="140" x2="390" y2="140" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="390" y="105" width="130" height="70" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.2"/>
+  <text x="455.0" y="146.66666666666666" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">调度层选择设备</text>
+  <line x1="520" y1="140" x2="550" y2="140" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="550" y="105" width="130" height="70" rx="0" ry="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="615.0" y="146.66666666666666" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">适配器执行</text>
+  <line x1="680" y1="140" x2="710" y2="140" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="710" y="105" width="130" height="70" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.2"/>
+  <text x="775.0" y="146.66666666666666" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">统一返回结果</text>
+  <rect x="260" y="240" width="380" height="210" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.5"/>
+  <text x="450.0" y="274" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="bold" text-anchor="middle" fill="#000000">审计记录内容</text>
+  <text x="450.0" y="306" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">请求编号、接口类别</text>
+  <text x="450.0" y="337" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">动作、算法和设备编号</text>
+  <text x="450.0" y="368" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">后端调用结果</text>
+  <text x="450.0" y="399" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">错误信息和耗时</text>
+  <text x="450.0" y="430" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">不记录密钥明文</text>
+  <line x1="450" y1="175" x2="450" y2="240" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="330" y="480" width="240" height="50" rx="0" ry="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="450.0" y="512.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="normal" text-anchor="middle" fill="#000000">用于测试复现和故障定位</text>
+  <line x1="450" y1="450" x2="450" y2="480" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
 </svg>

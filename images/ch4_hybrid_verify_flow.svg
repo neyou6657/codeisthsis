@@ -1,41 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="680" height="780" viewBox="0 0 680 780">
-<defs><marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#000"/></marker></defs>
-<rect width="100%" height="100%" fill="white"/>
-<!-- Title -->
-<text x="340" y="35" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="18" font-weight="bold">Hybrid Verification Flow</text>
-<!-- Step 1 -->
-<rect x="210" y="60" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="340" y="90" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Input Data to Verify</text>
-<line x1="340" y1="110" x2="340" y2="150" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
-<!-- Step 2 -->
-<rect x="210" y="150" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="340" y="180" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Split Hybrid Signature Components</text>
-<line x1="340" y1="200" x2="340" y2="240" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
-<!-- Branch -->
-<line x1="340" y1="240" x2="340" y2="260" stroke="#000" stroke-width="1.5"/>
-<line x1="170" y1="260" x2="510" y2="260" stroke="#000" stroke-width="1.5"/>
-<line x1="170" y1="260" x2="170" y2="290" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
-<line x1="510" y1="260" x2="510" y2="290" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
-<!-- Left branch: classic verify -->
-<rect x="70" y="290" width="200" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="170" y="320" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Classical Algorithm Verify</text>
-<!-- Right branch: PQC verify -->
-<rect x="410" y="290" width="200" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="510" y="320" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Post-Quantum Algorithm Verify</text>
-<!-- Merge -->
-<line x1="170" y1="340" x2="170" y2="380" stroke="#000" stroke-width="1.5"/>
-<line x1="510" y1="340" x2="510" y2="380" stroke="#000" stroke-width="1.5"/>
-<line x1="170" y1="380" x2="510" y2="380" stroke="#000" stroke-width="1.5"/>
-<line x1="340" y1="380" x2="340" y2="410" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
-<!-- Step: merge result -->
-<rect x="210" y="410" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="340" y="440" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Policy Merge Verify Results</text>
-<line x1="340" y1="460" x2="340" y2="500" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
-<!-- Step: log -->
-<rect x="210" y="500" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="340" y="530" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Record Audit Log</text>
-<line x1="340" y1="550" x2="340" y2="590" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
-<!-- Step: return -->
-<rect x="210" y="590" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="340" y="620" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Return Unified Result</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="660" viewBox="0 0 900 660">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L8,3 z" fill="#000000"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="660" fill="#ffffff"/>
+  <text x="450" y="42" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#000000">混合验签流程</text>
+  <rect x="285" y="95" width="330" height="48" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.2"/>
+  <text x="450.0" y="125.66666666666667" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">输入待验签数据</text>
+  <line x1="450" y1="143" x2="450" y2="170" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="285" y="170" width="330" height="48" rx="0" ry="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="450.0" y="200.66666666666666" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">拆分传统与抗量子签名</text>
+  <line x1="450" y1="218" x2="450" y2="245" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="285" y="245" width="330" height="48" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.2"/>
+  <text x="450.0" y="275.6666666666667" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">执行传统算法验签</text>
+  <line x1="450" y1="293" x2="450" y2="320" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="285" y="320" width="330" height="48" rx="0" ry="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="450.0" y="350.6666666666667" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">执行抗量子算法验签</text>
+  <line x1="450" y1="368" x2="450" y2="395" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="285" y="395" width="330" height="48" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.2"/>
+  <text x="450.0" y="425.6666666666667" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">按策略合并结果</text>
+  <line x1="450" y1="443" x2="450" y2="470" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="285" y="470" width="330" height="48" rx="0" ry="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="450.0" y="500.6666666666667" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">记录审计日志</text>
+  <line x1="450" y1="518" x2="450" y2="545" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="285" y="545" width="330" height="48" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.2"/>
+  <text x="450.0" y="575.6666666666666" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">返回统一结果</text>
 </svg>

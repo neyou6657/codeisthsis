@@ -1,49 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="780" height="520" viewBox="0 0 780 520">
-<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#000"/></marker></defs>
-<rect width="100%" height="100%" fill="white"/>
-<!-- Title -->
-<text x="390" y="30" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="16" font-weight="bold">Crypto Device Interface Fragmentation</text>
-<!-- Business System -->
-<rect x="290" y="50" width="200" height="40" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="390" y="75" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="13">Business System</text>
-<!-- Arrows down from business system -->
-<line x1="190" y1="90" x2="190" y2="150" stroke="#000" stroke-width="1.2" marker-end="url(#arr)"/>
-<line x1="340" y1="90" x2="340" y2="150" stroke="#000" stroke-width="1.2" marker-end="url(#arr)"/>
-<line x1="490" y1="90" x2="490" y2="150" stroke="#000" stroke-width="1.2" marker-end="url(#arr)"/>
-<line x1="640" y1="90" x2="640" y2="150" stroke="#000" stroke-width="1.2" marker-end="url(#arr)"/>
-<!-- Horizontal line from business system to each arrow top -->
-<line x1="190" y1="90" x2="640" y2="90" stroke="#000" stroke-width="1.2"/>
-<line x1="390" y1="90" x2="390" y2="90" stroke="#000" stroke-width="1.2"/>
-<!-- Device interfaces row -->
-<rect x="100" y="150" width="180" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="190" y="172" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="12">Classic HSM Interface</text>
-<text x="190" y="190" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="10">(SDF/GM/T 0018)</text>
-<rect x="250" y="150" width="180" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="340" y="172" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="12">Smart Token Interface</text>
-<text x="340" y="190" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="10">(SKF/GM/T 0016)</text>
-<rect x="400" y="150" width="180" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="490" y="172" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="12">PQC Device Interface</text>
-<text x="490" y="190" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="10">(ML-KEM/ML-DSA)</text>
-<rect x="550" y="150" width="180" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
-<text x="640" y="172" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="12">Software Crypto Library</text>
-<text x="640" y="190" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="10">(OpenSSL/liboqs)</text>
-<!-- Difference labels -->
-<rect x="80" y="240" width="620" height="130" fill="none" stroke="#000" stroke-width="1" stroke-dasharray="5,3"/>
-<text x="390" y="260" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="12" font-weight="bold">Interface Differences</text>
-<text x="160" y="290" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Session Mgmt Differs</text>
-<text x="310" y="290" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Key Reference Differs</text>
-<text x="470" y="290" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Algorithm Naming Differs</text>
-<text x="620" y="290" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Data Buffer Differs</text>
-<text x="160" y="320" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Error Handling Differs</text>
-<text x="310" y="320" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Capability Decl Differs</text>
-<text x="470" y="320" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Param Length Differs</text>
-<text x="620" y="320" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Call Flow Differs</text>
-<!-- Result -->
-<text x="390" y="360" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Causes difficulty in smooth business migration</text>
-<!-- Arrow down to solution -->
-<line x1="390" y1="380" x2="390" y2="420" stroke="#000" stroke-width="1.2" marker-end="url(#arr)"/>
-<!-- Solution box -->
-<rect x="240" y="420" width="300" height="45" fill="none" stroke="#000" stroke-width="2"/>
-<text x="390" y="440" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="13" font-weight="bold">Need Unified Crypto Interface</text>
-<text x="390" y="458" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="11">Shield underlying device differences</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="620" viewBox="0 0 980 620">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L8,3 z" fill="#000000"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="980" height="620" fill="#ffffff"/>
+  <text x="490" y="42" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#000000">现有密码设备接口差异示意图</text>
+  <rect x="60" y="95" width="220" height="120" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.5"/>
+  <text x="170.0" y="129" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="bold" text-anchor="middle" fill="#000000">业务系统</text>
+  <text x="170.0" y="161" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">签名、加密、密钥建立</text>
+  <text x="170.0" y="191" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">希望接口稳定统一</text>
+  <rect x="380" y="70" width="250" height="155" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.5"/>
+  <text x="505.0" y="104" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="bold" text-anchor="middle" fill="#000000">三未信安经典密码卡</text>
+  <text x="505.0" y="136" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="normal" text-anchor="middle" fill="#000000">设备/会话：OpenDevice</text>
+  <text x="505.0" y="165" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="normal" text-anchor="middle" fill="#000000">密钥：RSA、ECC、KEK</text>
+  <text x="505.0" y="194" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="normal" text-anchor="middle" fill="#000000">运算：Encrypt、Hash、Sign</text>
+  <rect x="380" y="255" width="250" height="155" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.5"/>
+  <text x="505.0" y="289" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="bold" text-anchor="middle" fill="#000000">三未信安抗量子接口</text>
+  <text x="505.0" y="321" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="normal" text-anchor="middle" fill="#000000">Kyber：生成、封装、解封装</text>
+  <text x="505.0" y="350" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="normal" text-anchor="middle" fill="#000000">Dilithium：生成、签名、验签</text>
+  <text x="505.0" y="379" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="normal" text-anchor="middle" fill="#000000">参数集和长度随级别变化</text>
+  <rect x="380" y="440" width="250" height="110" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.5"/>
+  <text x="505.0" y="474" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="bold" text-anchor="middle" fill="#000000">其他后端</text>
+  <text x="505.0" y="506" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="normal" text-anchor="middle" fill="#000000">SKF设备、软件库</text>
+  <text x="505.0" y="535" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="normal" text-anchor="middle" fill="#000000">调用模型各不相同</text>
+  <rect x="725" y="145" width="200" height="260" rx="0" ry="0" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="825.0" y="179" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="bold" text-anchor="middle" fill="#000000">接口差异</text>
+  <text x="825.0" y="211" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">会话和权限不同</text>
+  <text x="825.0" y="241" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">密钥引用不同</text>
+  <text x="825.0" y="271" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">算法参数不同</text>
+  <text x="825.0" y="301" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">输出长度不同</text>
+  <text x="825.0" y="331" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">错误码不同</text>
+  <rect x="725" y="450" width="200" height="95" rx="0" ry="0" fill="#f7f7f7" stroke="#000000" stroke-width="1.5"/>
+  <text x="825.0" y="484" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="bold" text-anchor="middle" fill="#000000">统一接口需求</text>
+  <text x="825.0" y="516" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">屏蔽设备差异</text>
+  <text x="825.0" y="546" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="normal" text-anchor="middle" fill="#000000">保持业务语义稳定</text>
+  <line x1="280" y1="155" x2="380" y2="145" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="280" y1="155" x2="380" y2="332" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="280" y1="155" x2="380" y2="495" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="630" y1="145" x2="725" y2="210" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="630" y1="332" x2="725" y2="285" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="630" y1="495" x2="725" y2="340" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="825" y1="405" x2="825" y2="450" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow)"/>
 </svg>
