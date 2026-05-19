@@ -1,16 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500">
-  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L7,3 z" fill="#000000"/></marker></defs>
-  <rect x="0" y="0" width="900" height="500" fill="#ffffff"/>
-  <text x="450.0" y="40" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" fill="#000000">服务器层架构</text>
-  <rect x="270" y="90" width="360" height="64" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="122.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">服务接入</text>
-  <line x1="450.0" y1="154" x2="450.0" y2="186" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-  <rect x="270" y="186" width="360" height="64" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="218.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">认证控制</text>
-  <line x1="450.0" y1="250" x2="450.0" y2="282" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-  <rect x="270" y="282" width="360" height="64" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="314.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">任务组织</text>
-  <line x1="450.0" y1="346" x2="450.0" y2="378" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-  <rect x="270" y="378" width="360" height="64" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="410.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">响应生成</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="540" viewBox="0 0 980 540">
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L7,3 z" fill="#000"/></marker></defs><rect x="0" y="0" width="980" height="540" fill="#fff"/><text x="490" y="40" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" dominant-baseline="middle">服务器层架构</text>
+  <rect x="65" y="115" width="180" height="86" fill="#f7f7f7" stroke="#000" stroke-width="1.4"/><text x="155" y="158" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" dominant-baseline="middle">服务接入</text>
+  <line x1="245" y1="158" x2="300" y2="158" stroke="#000" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="300" y="115" width="180" height="86" fill="#fff" stroke="#000" stroke-width="1.4"/><text x="390" y="158" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" dominant-baseline="middle">认证控制</text>
+  <line x1="480" y1="158" x2="535" y2="158" stroke="#000" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="535" y="115" width="180" height="86" fill="#f7f7f7" stroke="#000" stroke-width="1.4"/><text x="625" y="158" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" dominant-baseline="middle">任务组织</text>
+  <line x1="625" y1="201" x2="625" y2="260" stroke="#000" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="535" y="260" width="180" height="86" fill="#fff" stroke="#000" stroke-width="1.4"/><text x="625" y="303" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" dominant-baseline="middle">标准分派</text>
+  <line x1="535" y1="303" x2="480" y2="303" stroke="#000" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="300" y="260" width="180" height="86" fill="#f7f7f7" stroke="#000" stroke-width="1.4"/><text x="390" y="303" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" dominant-baseline="middle">响应生成</text>
+  <rect x="270" y="420" width="440" height="56" fill="#fff" stroke="#000" stroke-width="1.2"/><text x="490" y="448" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" text-anchor="middle" dominant-baseline="middle">实现细节</text>
+  <text x="490" y="468" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" text-anchor="middle" dominant-baseline="middle">第四章说明</text>
 </svg>

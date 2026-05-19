@@ -1,29 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="540" viewBox="0 0 900 540">
-  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L7,3 z" fill="#000000"/></marker></defs>
-  <rect x="0" y="0" width="900" height="540" fill="#ffffff"/>
-  <text x="450.0" y="40" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" fill="#000000">调度层架构</text>
-  <rect x="110" y="105" width="170" height="66" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
-  <text x="195.0" y="138.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">能力域</text>
-  <line x1="195.0" y1="171" x2="195.0" y2="230" stroke="#000000" stroke-width="1.4"/>
-  <rect x="365" y="105" width="170" height="66" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="138.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">密钥归属</text>
-  <line x1="450.0" y1="171" x2="450.0" y2="230" stroke="#000000" stroke-width="1.4"/>
-  <rect x="620" y="105" width="170" height="66" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
-  <text x="705.0" y="138.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">调度偏好</text>
-  <line x1="705.0" y1="171" x2="705.0" y2="230" stroke="#000000" stroke-width="1.4"/>
-  <line x1="195.0" y1="230" x2="705.0" y2="230" stroke="#000000" stroke-width="1.4"/>
-  <line x1="450" y1="230" x2="450" y2="265" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-  <rect x="300" y="265" width="300" height="72" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="301.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">设备选择</text>
-  <line x1="450" y1="337" x2="450" y2="390" stroke="#000000" stroke-width="1.4"/>
-  <line x1="210" y1="390" x2="690" y2="390" stroke="#000000" stroke-width="1.4"/>
-  <line x1="205.0" y1="390" x2="205.0" y2="425" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-  <rect x="120" y="425" width="170" height="66" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
-  <text x="205.0" y="458.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">经典设备</text>
-  <line x1="450.0" y1="390" x2="450.0" y2="425" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-  <rect x="365" y="425" width="170" height="66" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="458.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">抗量子设备</text>
-  <line x1="695.0" y1="390" x2="695.0" y2="425" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-  <rect x="610" y="425" width="170" height="66" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
-  <text x="695.0" y="458.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">智能钥匙</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="560" viewBox="0 0 980 560">
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L7,3 z" fill="#000"/></marker></defs><rect x="0" y="0" width="980" height="560" fill="#fff"/><text x="490" y="40" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" dominant-baseline="middle">调度层架构</text>
+  <rect x="70" y="85" width="180" height="72" fill="#f7f7f7" stroke="#000" stroke-width="1.4"/><text x="160" y="121" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" dominant-baseline="middle">能力域</text>
+  <rect x="70" y="205" width="180" height="72" fill="#fff" stroke="#000" stroke-width="1.4"/><text x="160" y="241" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" dominant-baseline="middle">密钥归属</text>
+  <rect x="70" y="325" width="180" height="72" fill="#f7f7f7" stroke="#000" stroke-width="1.4"/><text x="160" y="361" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" dominant-baseline="middle">调度偏好</text>
+  <line x1="250" y1="121" x2="330" y2="121" stroke="#000" stroke-width="1.4"/><line x1="330" y1="121" x2="330" y2="361" stroke="#000" stroke-width="1.4"/><line x1="250" y1="241" x2="330" y2="241" stroke="#000" stroke-width="1.4"/><line x1="250" y1="361" x2="330" y2="361" stroke="#000" stroke-width="1.4"/><line x1="330" y1="241" x2="405" y2="241" stroke="#000" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="405" y="185" width="210" height="112" fill="#fff" stroke="#000" stroke-width="1.4"/><text x="510" y="222" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle">设备选择</text><text x="510" y="260" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" text-anchor="middle" dominant-baseline="middle">筛选 排序</text>
+  <line x1="615" y1="241" x2="680" y2="241" stroke="#000" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="680" y="95" width="190" height="72" fill="#f7f7f7" stroke="#000" stroke-width="1.4"/><text x="775" y="131" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle">经典设备</text>
+  <rect x="680" y="205" width="190" height="72" fill="#fff" stroke="#000" stroke-width="1.4"/><text x="775" y="241" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle">抗量子设备</text>
+  <rect x="680" y="315" width="190" height="72" fill="#f7f7f7" stroke="#000" stroke-width="1.4"/><text x="775" y="351" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle">智能钥匙</text>
 </svg>

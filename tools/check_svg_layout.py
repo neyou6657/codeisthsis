@@ -24,11 +24,12 @@ def check(path: Path):
         fs = float(text.get('font-size', '20'))
         y = fnum(text.get('y'))
         # Text baseline must not sit on a horizontal rule. This catches the Chinese-height overlap problem.
+        tx_x = fnum(text.get('x'))
         for ln in root.findall('.//svg:line', NS):
             x1, y1, x2, y2 = map(lambda k: fnum(ln.get(k)), ['x1','y1','x2','y2'])
-            if y1 == y2 and abs(y - y1) < fs * 0.9:
-                raise AssertionError(f'{path}: text baseline too close to horizontal line: {s}')
             assert x1 == x2 or y1 == y2, f'{path}: diagonal line {x1},{y1}->{x2},{y2}'
+            if y1 == y2 and min(x1, x2) <= tx_x <= max(x1, x2) and abs(y - y1) < fs * 0.9:
+                raise AssertionError(f'{path}: text baseline too close to horizontal line: {s}')
     for poly in root.findall('.//svg:polyline', NS):
         pts = []
         for part in poly.get('points','').split():

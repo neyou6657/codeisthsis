@@ -1,19 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560">
-  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L7,3 z" fill="#000000"/></marker></defs>
-  <rect x="0" y="0" width="900" height="560" fill="#ffffff"/>
-  <text x="450.0" y="40" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" fill="#000000">接口差异来源</text>
-  <rect x="270" y="90" width="360" height="64" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="122.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">业务系统</text>
-  <line x1="450.0" y1="154" x2="450.0" y2="186" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-  <rect x="270" y="186" width="360" height="64" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="218.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">经典接口</text>
-  <line x1="450.0" y1="250" x2="450.0" y2="282" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-  <rect x="270" y="282" width="360" height="64" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="314.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">抗量子接口</text>
-  <line x1="450.0" y1="346" x2="450.0" y2="378" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-  <rect x="270" y="378" width="360" height="64" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="410.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">其他后端</text>
-  <line x1="450.0" y1="442" x2="450.0" y2="474" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-  <rect x="270" y="474" width="360" height="64" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="506.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">统一接口</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="560" viewBox="0 0 980 560">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#000000"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="980" height="560" fill="#ffffff"/>
+  <text x="490" y="40" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">现有设备接口差异</text>
+
+  <rect x="70" y="88" width="190" height="70" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
+  <text x="165" y="123" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">业务系统</text>
+
+  <line x1="260" y1="123" x2="315" y2="123" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="315" y="72" width="190" height="102" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
+  <text x="410" y="103" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">调用诉求</text>
+  <text x="410" y="133" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" text-anchor="middle" dominant-baseline="middle" fill="#000000">签名 加密</text>
+  <text x="410" y="156" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" text-anchor="middle" dominant-baseline="middle" fill="#000000">密钥建立</text>
+
+  <line x1="505" y1="123" x2="560" y2="123" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <rect x="560" y="62" width="180" height="64" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
+  <text x="650" y="94" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">经典接口</text>
+  <rect x="560" y="150" width="180" height="64" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
+  <text x="650" y="182" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">KEM接口</text>
+  <rect x="560" y="238" width="180" height="64" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
+  <text x="650" y="270" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">签名接口</text>
+  <rect x="560" y="326" width="180" height="64" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
+  <text x="650" y="358" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">软件接口</text>
+
+  <line x1="740" y1="94" x2="790" y2="94" stroke="#000000" stroke-width="1.4"/>
+  <line x1="790" y1="94" x2="790" y2="358" stroke="#000000" stroke-width="1.4"/>
+  <line x1="740" y1="182" x2="790" y2="182" stroke="#000000" stroke-width="1.4"/>
+  <line x1="740" y1="270" x2="790" y2="270" stroke="#000000" stroke-width="1.4"/>
+  <line x1="740" y1="358" x2="790" y2="358" stroke="#000000" stroke-width="1.4"/>
+  <line x1="790" y1="226" x2="835" y2="226" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <rect x="835" y="181" width="95" height="90" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
+  <text x="882.5" y="214" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">统一</text>
+  <text x="882.5" y="240" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">接口</text>
+
+  <rect x="315" y="430" width="425" height="54" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="527.5" y="457" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" text-anchor="middle" dominant-baseline="middle" fill="#000000">函数形态差异</text>
+  <text x="527.5" y="477" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" text-anchor="middle" dominant-baseline="middle" fill="#000000">参数表达差异</text>
 </svg>

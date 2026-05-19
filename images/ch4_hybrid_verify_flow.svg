@@ -1,19 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560">
-  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L7,3 z" fill="#000000"/></marker></defs>
-  <rect x="0" y="0" width="900" height="560" fill="#ffffff"/>
-  <text x="450.0" y="40" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" fill="#000000">混合验签流程</text>
-  <rect x="270" y="90" width="360" height="64" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="122.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">拆分签名</text>
-  <line x1="450.0" y1="154" x2="450.0" y2="186" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-  <rect x="270" y="186" width="360" height="64" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="218.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">传统验签</text>
-  <line x1="450.0" y1="250" x2="450.0" y2="282" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-  <rect x="270" y="282" width="360" height="64" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="314.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">抗量子验签</text>
-  <line x1="450.0" y1="346" x2="450.0" y2="378" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-  <rect x="270" y="378" width="360" height="64" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="410.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">合并结果</text>
-  <line x1="450.0" y1="442" x2="450.0" y2="474" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-  <rect x="270" y="474" width="360" height="64" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
-  <text x="450.0" y="506.0" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">返回结果</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="560" viewBox="0 0 980 560">
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L7,3 z" fill="#000"/></marker></defs><rect x="0" y="0" width="980" height="560" fill="#fff"/>
+  <text x="490" y="40" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" dominant-baseline="middle">混合验签流程</text>
+  <rect x="70" y="110" width="190" height="82" fill="#f7f7f7" stroke="#000" stroke-width="1.4"/><text x="165" y="138" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle">混合签名</text><text x="165" y="166" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="17" text-anchor="middle" dominant-baseline="middle">输入数据</text>
+  <line x1="260" y1="151" x2="330" y2="151" stroke="#000" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="330" y="110" width="190" height="82" fill="#fff" stroke="#000" stroke-width="1.4"/><text x="425" y="138" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle">拆分分量</text><text x="425" y="166" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="17" text-anchor="middle" dominant-baseline="middle">传统 抗量子</text>
+  <line x1="425" y1="192" x2="425" y2="240" stroke="#000" stroke-width="1.4"/><line x1="240" y1="240" x2="610" y2="240" stroke="#000" stroke-width="1.4"/>
+  <line x1="240" y1="240" x2="240" y2="285" stroke="#000" stroke-width="1.4" marker-end="url(#arrow)"/><line x1="610" y1="240" x2="610" y2="285" stroke="#000" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="145" y="285" width="190" height="90" fill="#f7f7f7" stroke="#000" stroke-width="1.4"/><text x="240" y="315" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle">传统验签</text><text x="240" y="345" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="17" text-anchor="middle" dominant-baseline="middle">SM2/RSA</text>
+  <rect x="515" y="285" width="190" height="90" fill="#fff" stroke="#000" stroke-width="1.4"/><text x="610" y="315" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle">抗量子验签</text><text x="610" y="345" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="17" text-anchor="middle" dominant-baseline="middle">Dilithium</text>
+  <line x1="335" y1="330" x2="425" y2="330" stroke="#000" stroke-width="1.4"/><line x1="515" y1="330" x2="425" y2="330" stroke="#000" stroke-width="1.4"/><line x1="425" y1="330" x2="425" y2="420" stroke="#000" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="330" y="420" width="190" height="82" fill="#f7f7f7" stroke="#000" stroke-width="1.4"/><text x="425" y="448" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle">合并结果</text><text x="425" y="476" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="17" text-anchor="middle" dominant-baseline="middle">统一返回</text>
 </svg>
