@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="780" viewBox="0 0 680 780">
+<defs><marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#000"/></marker></defs>
+<rect width="100%" height="100%" fill="white"/>
+<!-- Title -->
+<text x="340" y="35" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="18" font-weight="bold">Hybrid Verification Flow</text>
+<!-- Step 1 -->
+<rect x="210" y="60" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
+<text x="340" y="90" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Input Data to Verify</text>
+<line x1="340" y1="110" x2="340" y2="150" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
+<!-- Step 2 -->
+<rect x="210" y="150" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
+<text x="340" y="180" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Split Hybrid Signature Components</text>
+<line x1="340" y1="200" x2="340" y2="240" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
+<!-- Branch -->
+<line x1="340" y1="240" x2="340" y2="260" stroke="#000" stroke-width="1.5"/>
+<line x1="170" y1="260" x2="510" y2="260" stroke="#000" stroke-width="1.5"/>
+<line x1="170" y1="260" x2="170" y2="290" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="510" y1="260" x2="510" y2="290" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
+<!-- Left branch: classic verify -->
+<rect x="70" y="290" width="200" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
+<text x="170" y="320" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Classical Algorithm Verify</text>
+<!-- Right branch: PQC verify -->
+<rect x="410" y="290" width="200" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
+<text x="510" y="320" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Post-Quantum Algorithm Verify</text>
+<!-- Merge -->
+<line x1="170" y1="340" x2="170" y2="380" stroke="#000" stroke-width="1.5"/>
+<line x1="510" y1="340" x2="510" y2="380" stroke="#000" stroke-width="1.5"/>
+<line x1="170" y1="380" x2="510" y2="380" stroke="#000" stroke-width="1.5"/>
+<line x1="340" y1="380" x2="340" y2="410" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
+<!-- Step: merge result -->
+<rect x="210" y="410" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
+<text x="340" y="440" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Policy Merge Verify Results</text>
+<line x1="340" y1="460" x2="340" y2="500" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
+<!-- Step: log -->
+<rect x="210" y="500" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
+<text x="340" y="530" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Record Audit Log</text>
+<line x1="340" y1="550" x2="340" y2="590" stroke="#000" stroke-width="1.5" marker-end="url(#arrow)"/>
+<!-- Step: return -->
+<rect x="210" y="590" width="260" height="50" fill="none" stroke="#000" stroke-width="1.5"/>
+<text x="340" y="620" text-anchor="middle" font-family="SimSun, Microsoft YaHei, serif" font-size="14">Return Unified Result</text>
+</svg>

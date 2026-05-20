@@ -1,44 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="980" height="560" viewBox="0 0 980 560">
-  <defs>
-    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L7,3 z" fill="#000000"/>
-    </marker>
-  </defs>
-  <rect x="0" y="0" width="980" height="560" fill="#ffffff"/>
-  <text x="490" y="40" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">现有设备接口差异</text>
-
-  <rect x="70" y="88" width="190" height="70" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
-  <text x="165" y="123" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">业务系统</text>
-
-  <line x1="260" y1="123" x2="315" y2="123" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-  <rect x="315" y="72" width="190" height="102" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
-  <text x="410" y="103" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">调用诉求</text>
-  <text x="410" y="133" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" text-anchor="middle" dominant-baseline="middle" fill="#000000">签名 加密</text>
-  <text x="410" y="156" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" text-anchor="middle" dominant-baseline="middle" fill="#000000">密钥建立</text>
-
-  <line x1="505" y1="123" x2="560" y2="123" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-
-  <rect x="560" y="62" width="180" height="64" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
-  <text x="650" y="94" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">经典接口</text>
-  <rect x="560" y="150" width="180" height="64" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
-  <text x="650" y="182" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">KEM接口</text>
-  <rect x="560" y="238" width="180" height="64" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
-  <text x="650" y="270" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">签名接口</text>
-  <rect x="560" y="326" width="180" height="64" fill="#ffffff" stroke="#000000" stroke-width="1.4"/>
-  <text x="650" y="358" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">软件接口</text>
-
-  <line x1="740" y1="94" x2="790" y2="94" stroke="#000000" stroke-width="1.4"/>
-  <line x1="790" y1="94" x2="790" y2="358" stroke="#000000" stroke-width="1.4"/>
-  <line x1="740" y1="182" x2="790" y2="182" stroke="#000000" stroke-width="1.4"/>
-  <line x1="740" y1="270" x2="790" y2="270" stroke="#000000" stroke-width="1.4"/>
-  <line x1="740" y1="358" x2="790" y2="358" stroke="#000000" stroke-width="1.4"/>
-  <line x1="790" y1="226" x2="835" y2="226" stroke="#000000" stroke-width="1.4" marker-end="url(#arrow)"/>
-
-  <rect x="835" y="181" width="95" height="90" fill="#f7f7f7" stroke="#000000" stroke-width="1.4"/>
-  <text x="882.5" y="214" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">统一</text>
-  <text x="882.5" y="240" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">接口</text>
-
-  <rect x="315" y="430" width="425" height="54" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
-  <text x="527.5" y="457" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" text-anchor="middle" dominant-baseline="middle" fill="#000000">函数形态差异</text>
-  <text x="527.5" y="477" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="18" text-anchor="middle" dominant-baseline="middle" fill="#000000">参数表达差异</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="420" viewBox="0 0 680 420">
+  <rect x="0" y="0" width="680" height="420" fill="#ffffff"/>
+  <text x="340" y="35" font-family="SimSun, serif" font-size="18" font-weight="bold" text-anchor="middle">SDF接口函数膨胀机制</text>
+  <!-- Left: Algorithm axis -->
+  <rect x="40" y="70" width="120" height="40" fill="none" stroke="#000" stroke-width="1.2"/>
+  <text x="100" y="95" font-family="SimSun, serif" font-size="14" text-anchor="middle">RSA</text>
+  <rect x="40" y="120" width="120" height="40" fill="none" stroke="#000" stroke-width="1.2"/>
+  <text x="100" y="145" font-family="SimSun, serif" font-size="14" text-anchor="middle">ECC/SM2</text>
+  <rect x="40" y="170" width="120" height="40" fill="none" stroke="#000" stroke-width="1.2"/>
+  <text x="100" y="195" font-family="SimSun, serif" font-size="14" text-anchor="middle">SM4/AES</text>
+  <rect x="40" y="220" width="120" height="40" fill="none" stroke="#000" stroke-width="1.2"/>
+  <text x="100" y="245" font-family="SimSun, serif" font-size="14" text-anchor="middle">Kyber</text>
+  <rect x="40" y="270" width="120" height="40" fill="none" stroke="#000" stroke-width="1.2"/>
+  <text x="100" y="295" font-family="SimSun, serif" font-size="14" text-anchor="middle">Dilithium</text>
+  <text x="100" y="330" font-family="SimSun, serif" font-size="13" text-anchor="middle">算法维度</text>
+  <!-- Top: Key location axis -->
+  <rect x="220" y="70" width="100" height="40" fill="none" stroke="#000" stroke-width="1.2"/>
+  <text x="270" y="95" font-family="SimSun, serif" font-size="13" text-anchor="middle">内部密钥</text>
+  <rect x="330" y="70" width="100" height="40" fill="none" stroke="#000" stroke-width="1.2"/>
+  <text x="380" y="95" font-family="SimSun, serif" font-size="13" text-anchor="middle">外部密钥</text>
+  <rect x="440" y="70" width="100" height="40" fill="none" stroke="#000" stroke-width="1.2"/>
+  <text x="490" y="95" font-family="SimSun, serif" font-size="13" text-anchor="middle">会话密钥</text>
+  <text x="380" y="55" font-family="SimSun, serif" font-size="13" text-anchor="middle">密钥位置维度</text>
+  <!-- Cross product grid -->
+  <rect x="220" y="120" width="320" height="190" fill="none" stroke="#000" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <line x1="330" y1="120" x2="330" y2="310" stroke="#000" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <line x1="440" y1="120" x2="440" y2="310" stroke="#000" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <line x1="220" y1="158" x2="540" y2="158" stroke="#000" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <line x1="220" y1="196" x2="540" y2="196" stroke="#000" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <line x1="220" y1="234" x2="540" y2="234" stroke="#000" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <line x1="220" y1="272" x2="540" y2="272" stroke="#000" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <text x="380" y="215" font-family="SimSun, serif" font-size="14" text-anchor="middle">每格 = 1~2个函数</text>
+  <!-- Arrow to result -->
+  <line x1="380" y1="310" x2="380" y2="350" stroke="#000" stroke-width="1.2"/>
+  <polygon points="375,350 385,350 380,360" fill="#000"/>
+  <rect x="270" y="365" width="220" height="40" fill="none" stroke="#000" stroke-width="1.4"/>
+  <text x="380" y="390" font-family="SimSun, serif" font-size="14" font-weight="bold" text-anchor="middle">50+ 个函数入口</text>
+  <!-- Annotation -->
+  <text x="580" y="215" font-family="SimSun, serif" font-size="12" text-anchor="middle">笛卡尔</text>
+  <text x="580" y="233" font-family="SimSun, serif" font-size="12" text-anchor="middle">展开</text>
 </svg>

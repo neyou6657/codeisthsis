@@ -1,27 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="980" height="560" viewBox="0 0 980 560">
-  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L7,3 z" fill="#000000"/></marker></defs>
-  <rect x="0" y="0" width="980" height="560" fill="#ffffff"/>
-  <text x="490" y="40" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="#000000">经典与抗量子能力对照</text>
-  <rect x="55" y="85" width="250" height="58" fill="#f7f7f7" stroke="#000" stroke-width="1.4"/><text x="180" y="114" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" dominant-baseline="middle">经典设备</text>
-  <rect x="365" y="85" width="250" height="58" fill="#f7f7f7" stroke="#000" stroke-width="1.4"/><text x="490" y="114" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" dominant-baseline="middle">统一能力模型</text>
-  <rect x="675" y="85" width="250" height="58" fill="#f7f7f7" stroke="#000" stroke-width="1.4"/><text x="800" y="114" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="bold" text-anchor="middle" dominant-baseline="middle">抗量子设备</text>
-  <rect x="55" y="175" width="250" height="270" fill="#fff" stroke="#000" stroke-width="1.4"/>
-  <text x="180" y="220" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" text-anchor="middle" dominant-baseline="middle">密钥生成</text>
-  <text x="180" y="270" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" text-anchor="middle" dominant-baseline="middle">加密解密</text>
-  <text x="180" y="320" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" text-anchor="middle" dominant-baseline="middle">传统签名</text>
-  <text x="180" y="370" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" text-anchor="middle" dominant-baseline="middle">密钥协商</text>
-  <text x="180" y="420" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" text-anchor="middle" dominant-baseline="middle">杂凑计算</text>
-  <rect x="365" y="175" width="250" height="270" fill="#f7f7f7" stroke="#000" stroke-width="1.4"/>
-  <text x="490" y="220" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle">密钥管理</text>
-  <text x="490" y="270" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle">数据保护</text>
-  <text x="490" y="320" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle">签名验证</text>
-  <text x="490" y="370" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle">密钥建立</text>
-  <text x="490" y="420" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle">摘要能力</text>
-  <rect x="675" y="175" width="250" height="270" fill="#fff" stroke="#000" stroke-width="1.4"/>
-  <text x="800" y="220" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" text-anchor="middle" dominant-baseline="middle">密钥生成</text>
-  <text x="800" y="270" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" text-anchor="middle" dominant-baseline="middle">封装解封装</text>
-  <text x="800" y="320" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" text-anchor="middle" dominant-baseline="middle">抗量子签名</text>
-  <text x="800" y="370" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" text-anchor="middle" dominant-baseline="middle">KEM机制</text>
-  <text x="800" y="420" font-family="SimSun, Songti SC, Noto Serif CJK SC, Microsoft YaHei, Arial, sans-serif" font-size="20" text-anchor="middle" dominant-baseline="middle">哈希支撑</text>
-  <line x1="305" y1="310" x2="365" y2="310" stroke="#000" stroke-width="1.4" marker-end="url(#arrow)"/><line x1="675" y1="310" x2="615" y2="310" stroke="#000" stroke-width="1.4" marker-end="url(#arrow)"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="380" viewBox="0 0 680 380">
+  <rect x="0" y="0" width="680" height="380" fill="#ffffff"/>
+  <text x="340" y="35" font-family="SimSun, serif" font-size="18" font-weight="bold" text-anchor="middle">现有接口四类共性问题</text>
+  <!-- Four problem boxes -->
+  <rect x="40" y="70" width="280" height="60" fill="none" stroke="#000" stroke-width="1.2"/>
+  <text x="180" y="95" font-family="SimSun, serif" font-size="14" font-weight="bold" text-anchor="middle">问题一：接口与设备耦合</text>
+  <text x="180" y="115" font-family="SimSun, serif" font-size="12" text-anchor="middle">更换设备需重写业务代码</text>
+  <rect x="360" y="70" width="280" height="60" fill="none" stroke="#000" stroke-width="1.2"/>
+  <text x="500" y="95" font-family="SimSun, serif" font-size="14" font-weight="bold" text-anchor="middle">问题二：函数按算法膨胀</text>
+  <text x="500" y="115" font-family="SimSun, serif" font-size="12" text-anchor="middle">接口数量随算法线性增长</text>
+  <rect x="40" y="160" width="280" height="60" fill="none" stroke="#000" stroke-width="1.2"/>
+  <text x="180" y="185" font-family="SimSun, serif" font-size="14" font-weight="bold" text-anchor="middle">问题三：密钥表达碎片化</text>
+  <text x="180" y="205" font-family="SimSun, serif" font-size="12" text-anchor="middle">索引、句柄、外部结构各不相同</text>
+  <rect x="360" y="160" width="280" height="60" fill="none" stroke="#000" stroke-width="1.2"/>
+  <text x="500" y="185" font-family="SimSun, serif" font-size="14" font-weight="bold" text-anchor="middle">问题四：缺乏抗量子协同</text>
+  <text x="500" y="205" font-family="SimSun, serif" font-size="12" text-anchor="middle">无KEM和混合操作支持</text>
+  <!-- Arrows down -->
+  <line x1="180" y1="220" x2="180" y2="260" stroke="#000" stroke-width="1.2"/>
+  <line x1="500" y1="220" x2="500" y2="260" stroke="#000" stroke-width="1.2"/>
+  <line x1="180" y1="260" x2="500" y2="260" stroke="#000" stroke-width="1.2"/>
+  <line x1="340" y1="260" x2="340" y2="290" stroke="#000" stroke-width="1.2"/>
+  <polygon points="335,290 345,290 340,300" fill="#000"/>
+  <!-- Conclusion -->
+  <rect x="170" y="305" width="340" height="50" fill="none" stroke="#000" stroke-width="1.4"/>
+  <text x="340" y="335" font-family="SimSun, serif" font-size="15" font-weight="bold" text-anchor="middle">设计统一密码服务接口的动机</text>
 </svg>
