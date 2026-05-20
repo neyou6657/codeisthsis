@@ -777,22 +777,32 @@
               "hContext为服务上下文"
             ],
             [
-              "int CCM_GetVersion(char *szVersion, unsigned int *puiVersionLen);",
+              "int CCM_GetVersion(char *szVersion, unsigned int *puiLen);",
               "获取接口版本",
               "输出版本字符串和长度"
             ],
             [
-              "int CCM_Login(void *hSession, const char *szUserName, const char *szPin);",
+              "int CCM_Login(void *hSession, const char *szUser, const char *szPin);",
               "完成网关侧PIN认证",
               "会话、用户名、网关口令"
             ],
             [
-              "int CCM_GetCapability(void *hSession, Unif_Buffer *pCapabilityOut);",
+              "int CCM_ChangePin(void *hSession, const char *szOldPin, const char *szNewPin);",
+              "修改网关口令",
+              "旧口令和新口令"
+            ],
+            [
+              "int CCM_Logout(void *hSession);",
+              "登出当前会话",
+              "释放认证状态"
+            ],
+            [
+              "int CCM_GetCapability(void *hSession, Unif_Buffer *pOut);",
               "查询统一服务能力",
               "能力输出缓冲区"
             ],
             [
-              "int CCM_GenerateRandom(void *hSession, unsigned int uiLength, unsigned char *pucRandom);",
+              "int CCM_GenerateRandom(void *hSession, unsigned int uiLen, unsigned char *pucOut);",
               "生成随机数",
               "随机数长度和输出缓冲区"
             ]
@@ -818,12 +828,22 @@
             [
               "int CCM_Hash(...);",
               "一次性杂凑计算",
-              "SDF_HashInit + SDF_HashUpdate + SDF_HashFinal"
+              "SDF_HashInit+Update+Final"
             ],
             [
-              "int CCM_HashInit/Update/Final(...);",
-              "分步杂凑",
-              "SDF_HashInit / SDF_HashUpdate / SDF_HashFinal"
+              "int CCM_HashInit(...);",
+              "分步杂凑初始化",
+              "SDF_HashInit"
+            ],
+            [
+              "int CCM_HashUpdate(...);",
+              "分步杂凑更新",
+              "SDF_HashUpdate"
+            ],
+            [
+              "int CCM_HashFinal(...);",
+              "分步杂凑结束",
+              "SDF_HashFinal"
             ],
             [
               "int CCM_Mac(...);",
@@ -843,12 +863,12 @@
             [
               "int CCM_AsymEncrypt(...);",
               "非对称加密",
-              "SDF_InternalEncrypt_ECC_Ex / SKF_ECCEncrypt"
+              "SDF_InternalEncrypt_ECC_Ex"
             ],
             [
               "int CCM_AsymDecrypt(...);",
               "非对称解密",
-              "SDF_InternalDecrypt_ECC_Ex / SKF_ECCDecrypt"
+              "SDF_InternalDecrypt_ECC_Ex"
             ]
           ]
         },
@@ -884,6 +904,11 @@
               "SDF_GenerateKeyPair_ECC / SKF_GenECCKeyPair"
             ],
             [
+              "int CCM_GenerateSymKey(...);",
+              "生成对称密钥",
+              "SDF_GenerateKeyWithKEK"
+            ],
+            [
               "int CCM_ImportKey(...);",
               "导入密钥材料",
               "SDF_ImportKey / SKF_ImportECCKeyPair"
@@ -894,14 +919,24 @@
               "SDF_ExportSignPublicKey_ECC / SKF_ExportPublicKey"
             ],
             [
+              "int CCM_GetKeyInfo(...);",
+              "查询密钥信息",
+              "返回密钥算法、用途和状态"
+            ],
+            [
+              "int CCM_DestroyKey(...);",
+              "销毁密钥",
+              "SDF_DestroyKey / SKF_DeleteContainer"
+            ],
+            [
               "int CCM_KemEncapsulate(...);",
               "KEM封装",
-              "SDF_Encap_Kyber（PQC适配器）"
+              "SDF_Encap_Kyber"
             ],
             [
               "int CCM_KemDecapsulate(...);",
               "KEM解封装",
-              "SDF_Decap_Kyber（PQC适配器）"
+              "SDF_Decap_Kyber"
             ],
             [
               "int CCM_KeyAgreementInit(...);",
@@ -909,9 +944,14 @@
               "SDF_GenerateAgreementDataWithECC"
             ],
             [
+              "int CCM_KeyAgreementComplete(...);",
+              "完成密钥协商",
+              "SDF_GenerateKeyWithECC"
+            ],
+            [
               "int CCM_HybridKeyAgreement(...);",
               "混合密钥协商",
-              "通过sequence串行调度经典+PQC两步"
+              "序列调度经典+PQC两步"
             ]
           ]
         },
@@ -972,17 +1012,22 @@
             [
               "int CCM_SignDigest(...);",
               "摘要签名",
-              "SDF_InternalSign_ECC_Ex（输入为摘要）"
+              "SDF_InternalSign_ECC_Ex (输入为摘要)"
+            ],
+            [
+              "int CCM_VerifyDigest(...);",
+              "摘要验签",
+              "SDF_InternalVerify_ECC_Ex (输入为摘要)"
             ],
             [
               "int CCM_HybridSign(...);",
               "混合签名",
-              "sequence: SDF_InternalSign_ECC_Ex > SDF_Sign_Dilithium"
+              "序列: SM2签名 + Dilithium签名"
             ],
             [
               "int CCM_HybridVerify(...);",
               "混合验签",
-              "sequence: SDF_InternalVerify_ECC_Ex > SDF_Verify_Dilithium"
+              "序列: SM2验签 + Dilithium验签"
             ]
           ]
         },
@@ -1111,23 +1156,38 @@
             ],
             [
               "CCM_GetVersion",
-              "out=buffer, len=2048",
+              "out=version_buffer, out_len=2048",
               "返回成功，版本字符串非空"
             ],
             [
               "CCM_Login",
-              "user=admin, pin=正确PIN",
-              "返回STATUS_OK(0)"
+              "user=user, pin=123456",
+              "返回成功(0)"
             ],
             [
-              "CCM_Login（错误PIN）",
-              "user=admin, pin=wrong",
-              "返回STATUS_UNAUTHORIZED(401)"
+              "CCM_ChangePin",
+              "old_pin=123456, new_pin=654321",
+              "返回成功(0)"
+            ],
+            [
+              "CCM_Logout",
+              "session=ctx",
+              "返回成功(0)"
+            ],
+            [
+              "CCM_Finalize",
+              "context=ctx",
+              "返回成功(0)"
+            ],
+            [
+              "CCM_GetCapability",
+              "out=capability_buffer",
+              "返回成功(0)"
             ],
             [
               "CCM_GenerateRandom",
-              "length=2048",
-              "返回成功，输出随机数据"
+              "length=2048, out=random_buffer",
+              "返回成功(0)"
             ]
           ]
         },
@@ -1159,23 +1219,48 @@
           "rows": [
             [
               "CCM_Hash",
-              "alg=SM3, data=\"abc\"",
-              "成功，路由到classic-1，调用SDF_Hash"
+              "alg=SM3, data_len=3, out=hash",
+              "返回成功(0)"
+            ],
+            [
+              "CCM_HashInit",
+              "alg=SM3",
+              "返回成功(0)"
+            ],
+            [
+              "CCM_HashUpdate",
+              "data_len=3",
+              "返回成功(0)"
+            ],
+            [
+              "CCM_HashFinal",
+              "out=hash",
+              "返回成功(0)"
             ],
             [
               "CCM_Mac",
-              "alg=SM4-MAC, key_index=1, iv_len=16",
-              "成功，调用SDF_CalculateMAC"
+              "alg=SM4-MAC, key_index=1, iv_len=16, data_len=3",
+              "返回成功(0)"
             ],
             [
               "CCM_SymEncrypt",
-              "alg=SM4-CBC, key_index=1, iv_len=16",
-              "成功，调用SDF_Encrypt"
+              "alg=SM4-CBC, key_index=1, iv_len=16, plain_len=3",
+              "返回成功(0)"
+            ],
+            [
+              "CCM_SymDecrypt",
+              "alg=SM4-CBC, key_index=1, iv_len=16, cipher_len=3",
+              "返回成功(0)"
+            ],
+            [
+              "CCM_AsymEncrypt",
+              "alg=SM2, key_index=1, plain_len=3",
+              "返回成功(0)"
             ],
             [
               "CCM_AsymDecrypt",
-              "alg=SM2, key_index=1",
-              "成功，调用SDF_InternalDecrypt_ECC_Ex"
+              "alg=SM2, key_index=1, cipher_len=3",
+              "返回成功(0)"
             ]
           ]
         },
@@ -1190,7 +1275,7 @@
         {
           "type": "image",
           "caption": "图5-3  密钥管理类接口测试终端截图",
-          "path": "images/ch5_密钥处理ment_interface_test.png"
+          "path": "images/ch5_key_management_interface_test.png"
         },
         {
           "type": "paragraph",
@@ -1206,24 +1291,59 @@
           ],
           "rows": [
             [
+              "CCM_GenerateKeyPair",
+              "alg=DILITHIUM3, key_index=7",
+              "返回成功(0)"
+            ],
+            [
+              "CCM_GenerateSymKey",
+              "alg=DILITHIUM3, key_index=8",
+              "返回成功(0)"
+            ],
+            [
               "CCM_ImportKey",
-              "alg=DILITHIUM3, blob_len=3",
-              "成功，路由到pqc-1"
+              "alg=DILITHIUM3, key_blob_len=3, out_key_index=1",
+              "返回成功(0)"
+            ],
+            [
+              "CCM_ExportPublicKey",
+              "key_alg=DILITHIUM3, key_index=1, out=public_key",
+              "返回成功(0)"
+            ],
+            [
+              "CCM_GetKeyInfo",
+              "key_alg=DILITHIUM3, key_index=1, out=key_info",
+              "返回成功(0)"
+            ],
+            [
+              "CCM_DestroyKey",
+              "key_alg=DILITHIUM3, key_index=1",
+              "返回成功(0)"
             ],
             [
               "CCM_KemEncapsulate",
-              "alg=MLKEM768, pub_key_index=2",
-              "成功，调用SDF_Encap_Kyber"
+              "alg=MLKEM768, public_key_index=2, out=ciphertext+shared_secret",
+              "返回成功(0)"
+            ],
+            [
+              "CCM_KemDecapsulate",
+              "alg=MLKEM768, private_key_index=2, ciphertext_len=3, out=shared_secret",
+              "返回成功(0)"
             ],
             [
               "CCM_KeyAgreementInit",
-              "alg=SM2, self_key_index=1",
-              "成功，调用SDF_GenerateAgreementDataWithECC"
+              "alg=SM2, self_key_index=1, self_id_len=3, out=agreement_data+handle",
+              "返回成功(0)"
+            ],
+            [
+              "CCM_KeyAgreementComplete",
+              "alg=SM2, agreement_key_index=1, peer_data_len=3, out=session_key",
+              "返回成功(0)"
             ],
             [
               "CCM_HybridKeyAgreement",
-              "classic_key=1, pqc_key=2, alg=MLKEM768",
-              "成功，序列调度classic+pqc两步"
+              "alg=MLKEM768, classic_key_index=1, pqc_key_index=2, peer_data_len=3",
+              "返回成功(0)"
             ]
           ]
         },
@@ -1255,23 +1375,33 @@
           "rows": [
             [
               "CCM_Sign",
-              "alg=SM2, priv_key_index=1, data=\"abc\"",
-              "成功，调用SDF_InternalSign_ECC_Ex"
+              "alg=SM2, private_key_index=1, data_len=3, out=signature",
+              "返回成功(0)"
             ],
             [
               "CCM_Verify",
-              "alg=SM2, pub_key_index=1",
-              "成功，调用SDF_InternalVerify_ECC_Ex"
+              "alg=SM2, public_key_index=1, data_len=3, signature_len=2048",
+              "返回成功(0)"
+            ],
+            [
+              "CCM_SignDigest",
+              "alg=SM2, private_key_index=1, digest_len=3, out=signature",
+              "返回成功(0)"
+            ],
+            [
+              "CCM_VerifyDigest",
+              "alg=SM2, public_key_index=1, digest_len=3, signature_len=2048",
+              "返回成功(0)"
             ],
             [
               "CCM_HybridSign",
-              "classic_alg=SM2, pqc_alg=DILITHIUM3",
-              "成功，序列为asym:sign:classic:sm2>pqc:sign:pqc:dilithium3"
+              "classic_alg=SM2, pqc_alg=DILITHIUM3, data_len=3, out=hybrid_signature",
+              "返回成功(0)"
             ],
             [
               "CCM_HybridVerify",
-              "classic_alg=SM2, pqc_alg=DILITHIUM3",
-              "成功，两步验签均通过"
+              "classic_alg=SM2, pqc_alg=DILITHIUM3, data_len=3, signature_len=2048",
+              "返回成功(0)"
             ]
           ]
         },
