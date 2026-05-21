@@ -12,11 +12,11 @@
   "sections": [
     {
       "type": "chapter",
-      "title": "引言",
+      "title": "1 绪论",
       "blocks": [
         {
           "type": "heading2",
-          "title": "研究背景与意义"
+          "title": "1.1 研究背景与意义"
         },
         {
           "type": "paragraph",
@@ -36,7 +36,7 @@
         },
         {
           "type": "heading2",
-          "title": "国内外研究及发展现状"
+          "title": "1.2 国内外研究及发展现状"
         },
         {
           "type": "paragraph",
@@ -44,19 +44,23 @@
         },
         {
           "type": "paragraph",
-          "text": "国内研究方面，《密码法》{{cite:18}}和《商用密码管理条例》{{cite:19}}确立了密码应用的法律框架。SM2{{cite:20}}{{cite:21}}{{cite:22}}{{cite:23}}{{cite:24}}、SM3{{cite:25}}{{cite:26}}、SM4{{cite:27}}等国产算法标准、密码模块安全要求{{cite:28}}和信息系统密码应用基本要求{{cite:29}}构成了商用密码应用体系。GM/T 0018{{cite:1}}规定了服务器密码机应用接口，GM/T 0016{{cite:2}}规定了智能密码钥匙接口。但现有规范分别面向不同设备形态制定，缺少面向多类设备统一调用的中间层设计。近年微服务安全与服务拆分研究表明，服务化系统通常需要在接口边界、服务粒度和安全治理之间建立清晰约束{{cite:30}}{{cite:31}}。"
+          "text": "国内研究方面，现有研究已经围绕密码服务平台、云密码服务、统一接口和密码设备池等方向展开。冯文秀等从云架构角度讨论统一密码服务平台，强调通过兼容性改造、模块化部署和统一API，为多类业务系统提供统一密码应用并降低分散建设的资源浪费{{cite:18}}。何淦以银行统一密码服务平台为对象，分析了初始化、密码管理、消息认证、PIN管理、卡认证、IC卡交易和基础运算等接口需求，并围绕密码设备池、适配调度和日志审计设计接口软件系统{{cite:19}}。王九林等提出基于标准密码设备应用接口规范的密码服务平台，通过标准API屏蔽底层密码服务处理过程，提高密码服务的易用性、可移植性和设备资源利用率{{cite:20}}。"
         },
         {
           "type": "paragraph",
-          "text": "近年平台化和服务化建设也为统一密码服务接口提供了工程参考。工业互联网平台相关标准将微服务拆分、服务注册、接口开放和调用治理作为平台能力建设的重要内容{{cite:32}}{{cite:33}}；软件开发工具包安全要求和边缘计算安全要求则强调接口边界、权限控制、密钥材料保护和组件安全调用{{cite:34}}{{cite:35}}{{cite:36}}。这些工作说明，密码能力不宜只以单一设备接口暴露，而应通过稳定接口、统一调度和受控适配方式向上层业务提供服务。"
+          "text": "在规范和标准方面，《密码法》{{cite:21}}和《商用密码管理条例》{{cite:22}}确立了密码应用的法律框架。SM2{{cite:23}}{{cite:24}}{{cite:25}}{{cite:26}}{{cite:27}}、SM3{{cite:28}}{{cite:29}}、SM4{{cite:30}}等国产算法标准、密码模块安全要求{{cite:31}}和信息系统密码应用基本要求{{cite:32}}构成了商用密码应用体系。GM/T 0018{{cite:1}}规定了服务器密码机应用接口，GM/T 0016{{cite:2}}规定了智能密码钥匙接口。但现有规范分别面向不同设备形态制定，缺少面向多类设备统一调用的中间层设计。近年微服务安全与服务拆分研究表明，服务化系统通常需要在接口边界、服务粒度和安全治理之间建立清晰约束{{cite:33}}{{cite:34}}。"
         },
         {
           "type": "paragraph",
-          "text": "从已有工程实践看，单体系统向服务化架构迁移时，接口边界、服务粒度和内部实现替换是影响系统可维护性的关键因素{{cite:37}}。统一密码服务方案容易出现两类问题：一是接口划分过粗，把所有操作塞入一个入口，导致参数复杂且职责不清；二是接口划分过碎，为每种算法、每种设备单独设计函数，导致函数数量膨胀。本文通过四类接口划分和三类统一结构设计，在接口粒度上取得平衡。"
+          "text": "近年平台化和服务化建设也为统一密码服务接口提供了工程参考。工业互联网平台相关标准将微服务拆分、服务注册、接口开放和调用治理作为平台能力建设的重要内容{{cite:35}}{{cite:36}}；软件开发工具包安全要求和边缘计算安全要求则强调接口边界、权限控制、密钥材料保护和组件安全调用{{cite:37}}{{cite:38}}{{cite:39}}。这些工作说明，密码能力不宜只以单一设备接口暴露，而应通过稳定接口、统一调度和受控适配方式向上层业务提供服务。"
+        },
+        {
+          "type": "paragraph",
+          "text": "从已有工程实践看，单体系统向服务化架构迁移时，接口边界、服务粒度和内部实现替换是影响系统可维护性的关键因素{{cite:40}}。统一密码服务方案容易出现两类问题：一是接口划分过粗，把所有操作塞入一个入口，导致参数复杂且职责不清；二是接口划分过碎，为每种算法、每种设备单独设计函数，导致函数数量膨胀。本文通过四类接口划分和三类统一结构设计，在接口粒度上取得平衡。"
         },
         {
           "type": "heading2",
-          "title": "研究目的与内容"
+          "title": "1.3 研究目的与内容"
         },
         {
           "type": "paragraph",
@@ -68,7 +72,7 @@
         },
         {
           "type": "heading2",
-          "title": "论文结构"
+          "title": "1.4 论文结构"
         },
         {
           "type": "paragraph",
@@ -82,7 +86,7 @@
     },
     {
       "type": "chapter",
-      "title": "1  现有密码设备接口分析",
+      "title": "2  现有密码设备接口分析",
       "blocks": [
         {
           "type": "heading2",
@@ -273,7 +277,7 @@
     },
     {
       "type": "chapter",
-      "title": "2  统一密码服务接口功能设计",
+      "title": "3  统一密码服务接口功能设计",
       "blocks": [
         {
           "type": "heading2",
@@ -388,7 +392,7 @@
     },
     {
       "type": "chapter",
-      "title": "3  统一密码服务接口架构设计",
+      "title": "4  统一密码服务接口架构设计",
       "blocks": [
         {
           "type": "heading2",
@@ -580,7 +584,7 @@
     },
     {
       "type": "chapter",
-      "title": "4  统一密码服务接口数据结构与实现",
+      "title": "5  统一密码服务接口数据结构与实现",
       "blocks": [
         {
           "type": "heading2",
@@ -1043,7 +1047,7 @@
     },
     {
       "type": "chapter",
-      "title": "5  接口测试",
+      "title": "6  接口测试",
       "blocks": [
         {
           "type": "heading2",
@@ -1507,46 +1511,46 @@
     }
   ],
   "references": [
-    "[1] 国家密码管理局.密码设备应用接口规范:GM/T 0018—2012[S].北京:中国标准出版社,2012.",
-    "[2] 国家密码管理局.智能密码钥匙密码应用接口规范:GM/T 0016—2012[S].北京:中国标准出版社,2012.",
-    "[3] Shor P W.Algorithms for Quantum Computation: Discrete Logarithms and Factoring[C]//Proceedings of the 35th Annual Symposium on Foundations of Computer Science.Santa Fe:IEEE,1994:124-134.",
-    "[4] Grover L K.A Fast Quantum Mechanical Algorithm for Database Search[C]//Proceedings of the 28th Annual ACM Symposium on Theory of Computing.New York:ACM,1996:212-219.",
-    "[5] National Institute of Standards and Technology.Module-Lattice-Based Key-Encapsulation Mechanism Standard:FIPS 203[S].Gaithersburg:National Institute of Standards and Technology,2024.",
-    "[6] National Institute of Standards and Technology.Module-Lattice-Based Digital Signature Standard:FIPS 204[S].Gaithersburg:National Institute of Standards and Technology,2024.",
-    "[7] National Institute of Standards and Technology.Stateless Hash-Based Digital Signature Standard:FIPS 205[S].Gaithersburg:National Institute of Standards and Technology,2024.",
-    "[8] Alagic G,Apon D,Cooper D,et al.Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process:NIST IR 8413-upd1[R].Gaithersburg:National Institute of Standards and Technology,2022.",
-    "[9] National Institute of Standards and Technology.Recommendation for Key Management: Part 1-General:SP 800-57 Part 1 Rev.5[S].Gaithersburg:National Institute of Standards and Technology,2020.",
-    "[10] National Institute of Standards and Technology.Transitioning the Use of Cryptographic Algorithms and Key Lengths:SP 800-131A Rev.2[S].Gaithersburg:National Institute of Standards and Technology,2019.",
-    "[11] Rescorla E.The Transport Layer Security (TLS) Protocol Version 1.3:RFC 8446[S].Fremont:Internet Engineering Task Force,2018.",
-    "[12] Cooper D,Santesson S,Farrell S,et al.Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile:RFC 5280[S].Fremont:Internet Engineering Task Force,2008.",
-    "[13] Housley R.Cryptographic Message Syntax (CMS):RFC 5652[S].Fremont:Internet Engineering Task Force,2009.",
-    "[14] Moriarty K,Kaliski B,Jonsson J,et al.PKCS #1: RSA Cryptography Specifications Version 2.2:RFC 8017[S].Fremont:Internet Engineering Task Force,2016.",
-    "[15] Bos J W,Ducas L,Kiltz E,et al.CRYSTALS-Kyber: A CCA-Secure Module-Lattice-Based KEM[C]//2018 IEEE European Symposium on Security and Privacy.San Francisco:IEEE,2018:353-367.",
-    "[16] Ducas L,Kiltz E,Lepoint T,et al.CRYSTALS-Dilithium: A Lattice-Based Digital Signature Scheme[J].IACR Transactions on Cryptographic Hardware and Embedded Systems,2018(1):238-268.",
-    "[17] Bernstein D J,Hülsing A,Kölbl S,et al.The SPHINCS+ Signature Framework[C]//Proceedings of the 2019 ACM SIGSAC Conference on Computer and Communications Security.New York:ACM,2019:2129-2146.",
-    "[18] 全国人民代表大会常务委员会.中华人民共和国密码法[Z].2019.",
-    "[19] 中华人民共和国国务院.商用密码管理条例[Z].2023.",
-    "[20] 全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM2椭圆曲线公钥密码算法 第1部分:总则:GB/T 32918.1—2016[S].北京:中国标准出版社,2016.",
-    "[21] 全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM2椭圆曲线公钥密码算法 第2部分:数字签名算法:GB/T 32918.2—2016[S].北京:中国标准出版社,2016.",
-    "[22] 全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM2椭圆曲线公钥密码算法 第3部分:密钥交换协议:GB/T 32918.3—2016[S].北京:中国标准出版社,2016.",
-    "[23] 全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM2椭圆曲线公钥密码算法 第4部分:公钥加密算法:GB/T 32918.4—2016[S].北京:中国标准出版社,2016.",
-    "[24] 汪朝晖.SM2椭圆曲线公钥密码算法[J].信息安全研究,2016,2(11):972-982.",
-    "[25] 全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM3密码杂凑算法:GB/T 32905—2016[S].北京:中国标准出版社,2016.",
-    "[26] 王小云.SM3密码杂凑算法[J].信息安全研究,2016,2(11):983-994.",
-    "[27] 全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM4分组密码算法:GB/T 32907—2016[S].北京:中国标准出版社,2016.",
-    "[28] 全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 密码模块安全要求:GB/T 37092—2018[S].北京:中国标准出版社,2018.",
-    "[29] 全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 信息系统密码应用基本要求:GB/T 39786—2021[S].北京:中国标准出版社,2021.",
-    "[30] Hannousse A,Yahiouche S.Securing Microservices and Microservice Architectures: A Systematic Mapping Study[EB/OL].(2020-03-16)[2026-05-19].https://arxiv.org/abs/2003.07262.",
-    "[31] Hassan S,Bahsoon R,Kazman R.Microservice Transition and its Granularity Problem: A Systematic Mapping Study[EB/OL].(2019-03-27)[2026-05-19].https://arxiv.org/abs/1903.11665.",
-    "[32] 国家市场监督管理总局,国家标准化管理委员会.工业互联网平台 微服务参考框架:GB/T 42568—2023[S].北京:中国标准出版社,2023.",
-    "[33] 国家市场监督管理总局,国家标准化管理委员会.工业互联网平台 开放应用编程接口功能要求:GB/T 42569—2023[S].北京:中国标准出版社,2023.",
-    "[34] 国家市场监督管理总局,国家标准化管理委员会.信息安全技术 移动互联网应用程序(App)软件开发工具包(SDK)安全要求:GB/T 43435—2023[S].北京:中国标准出版社,2023.",
-    "[35] 国家市场监督管理总局,国家标准化管理委员会.信息安全技术 边缘计算安全技术要求:GB/T 42564—2023[S].北京:中国标准出版社,2023.",
-    "[36] 国家市场监督管理总局,国家标准化管理委员会.信息安全技术 可信执行环境服务规范:GB/T 42572—2023[S].北京:中国标准出版社,2023.",
-    "[37] Seedat M,Abbas Q,Ahmad N.Systematic Mapping of Monolithic Applications to Microservices Architecture[EB/OL].(2023-09-07)[2026-05-19].https://arxiv.org/abs/2309.03796.",
-    "[38] National Institute of Standards and Technology.Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography:SP 800-56A Rev.3[S].Gaithersburg:National Institute of Standards and Technology,2018.",
-    "[39] Gamma E,Helm R,Johnson R,Vlissides J.Design Patterns: Elements of Reusable Object-Oriented Software[M].Reading:Addison-Wesley,1994.",
-    "[40] Hohpe G,Woolf B.Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions[M].Boston:Addison-Wesley,2003."
+    "国家密码管理局.密码设备应用接口规范:GM/T 0018—2012[S].北京:中国标准出版社,2012.",
+    "国家密码管理局.智能密码钥匙密码应用接口规范:GM/T 0016—2012[S].北京:中国标准出版社,2012.",
+    "Shor P W.Algorithms for Quantum Computation: Discrete Logarithms and Factoring[C]//Proceedings of the 35th Annual Symposium on Foundations of Computer Science.Santa Fe:IEEE,1994:124-134.",
+    "Grover L K.A Fast Quantum Mechanical Algorithm for Database Search[C]//Proceedings of the 28th Annual ACM Symposium on Theory of Computing.New York:ACM,1996:212-219.",
+    "National Institute of Standards and Technology.Module-Lattice-Based Key-Encapsulation Mechanism Standard:FIPS 203[S].Gaithersburg:National Institute of Standards and Technology,2024.",
+    "National Institute of Standards and Technology.Module-Lattice-Based Digital Signature Standard:FIPS 204[S].Gaithersburg:National Institute of Standards and Technology,2024.",
+    "National Institute of Standards and Technology.Stateless Hash-Based Digital Signature Standard:FIPS 205[S].Gaithersburg:National Institute of Standards and Technology,2024.",
+    "Alagic G,Apon D,Cooper D,et al.Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process:NIST IR 8413-upd1[R].Gaithersburg:National Institute of Standards and Technology,2022.",
+    "National Institute of Standards and Technology.Recommendation for Key Management: Part 1-General:SP 800-57 Part 1 Rev.5[S].Gaithersburg:National Institute of Standards and Technology,2020.",
+    "National Institute of Standards and Technology.Transitioning the Use of Cryptographic Algorithms and Key Lengths:SP 800-131A Rev.2[S].Gaithersburg:National Institute of Standards and Technology,2019.",
+    "Rescorla E.The Transport Layer Security (TLS) Protocol Version 1.3:RFC 8446[S].Fremont:Internet Engineering Task Force,2018.",
+    "Cooper D,Santesson S,Farrell S,et al.Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile:RFC 5280[S].Fremont:Internet Engineering Task Force,2008.",
+    "Housley R.Cryptographic Message Syntax (CMS):RFC 5652[S].Fremont:Internet Engineering Task Force,2009.",
+    "Moriarty K,Kaliski B,Jonsson J,et al.PKCS #1: RSA Cryptography Specifications Version 2.2:RFC 8017[S].Fremont:Internet Engineering Task Force,2016.",
+    "Bos J W,Ducas L,Kiltz E,et al.CRYSTALS-Kyber: A CCA-Secure Module-Lattice-Based KEM[C]//2018 IEEE European Symposium on Security and Privacy.San Francisco:IEEE,2018:353-367.",
+    "Ducas L,Kiltz E,Lepoint T,et al.CRYSTALS-Dilithium: A Lattice-Based Digital Signature Scheme[J].IACR Transactions on Cryptographic Hardware and Embedded Systems,2018(1):238-268.",
+    "Bernstein D J,Hülsing A,Kölbl S,et al.The SPHINCS+ Signature Framework[C]//Proceedings of the 2019 ACM SIGSAC Conference on Computer and Communications Security.New York:ACM,2019:2129-2146.",
+    "冯文秀,冯媛媛,胡永亮,等.基于云架构的统一密码服务平台设计[C]//中国网络安全产业联盟,中国电子技术标准化研究院.2021年国家网络安全宣传周“网络安全产业发展论坛”论文集.北京数字认证股份有限公司;,2021:24-27.DOI:10.26914/c.cnkihy.2021.038939.",
+    "何淦.某银行统一密码服务平台接口软件系统设计与实现[D].电子科技大学,2021.DOI:10.27005/d.cnki.gdzku.2021.003335.",
+    "王九林,夏潇,王一帆.密码服务平台的设计与实现[J].北京电子科技学院学报,2015,23(04):50-54+88.",
+    "全国人民代表大会常务委员会.中华人民共和国密码法[Z].2019.",
+    "中华人民共和国国务院.商用密码管理条例[Z].2023.",
+    "全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM2椭圆曲线公钥密码算法 第1部分:总则:GB/T 32918.1—2016[S].北京:中国标准出版社,2016.",
+    "全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM2椭圆曲线公钥密码算法 第2部分:数字签名算法:GB/T 32918.2—2016[S].北京:中国标准出版社,2016.",
+    "全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM2椭圆曲线公钥密码算法 第3部分:密钥交换协议:GB/T 32918.3—2016[S].北京:中国标准出版社,2016.",
+    "全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM2椭圆曲线公钥密码算法 第4部分:公钥加密算法:GB/T 32918.4—2016[S].北京:中国标准出版社,2016.",
+    "汪朝晖.SM2椭圆曲线公钥密码算法[J].信息安全研究,2016,2(11):972-982.",
+    "全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM3密码杂凑算法:GB/T 32905—2016[S].北京:中国标准出版社,2016.",
+    "王小云.SM3密码杂凑算法[J].信息安全研究,2016,2(11):983-994.",
+    "全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 SM4分组密码算法:GB/T 32907—2016[S].北京:中国标准出版社,2016.",
+    "全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 密码模块安全要求:GB/T 37092—2018[S].北京:中国标准出版社,2018.",
+    "全国信息安全标准化技术委员会(SAC/TC 260).信息安全技术 信息系统密码应用基本要求:GB/T 39786—2021[S].北京:中国标准出版社,2021.",
+    "Hannousse A,Yahiouche S.Securing Microservices and Microservice Architectures: A Systematic Mapping Study[EB/OL].(2020-03-16)[2026-05-19].https://arxiv.org/abs/2003.07262.",
+    "Hassan S,Bahsoon R,Kazman R.Microservice Transition and its Granularity Problem: A Systematic Mapping Study[EB/OL].(2019-03-27)[2026-05-19].https://arxiv.org/abs/1903.11665.",
+    "国家市场监督管理总局,国家标准化管理委员会.工业互联网平台 微服务参考框架:GB/T 42568—2023[S].北京:中国标准出版社,2023.",
+    "国家市场监督管理总局,国家标准化管理委员会.工业互联网平台 开放应用编程接口功能要求:GB/T 42569—2023[S].北京:中国标准出版社,2023.",
+    "国家市场监督管理总局,国家标准化管理委员会.信息安全技术 移动互联网应用程序(App)软件开发工具包(SDK)安全要求:GB/T 43435—2023[S].北京:中国标准出版社,2023.",
+    "国家市场监督管理总局,国家标准化管理委员会.信息安全技术 边缘计算安全技术要求:GB/T 42564—2023[S].北京:中国标准出版社,2023.",
+    "国家市场监督管理总局,国家标准化管理委员会.信息安全技术 可信执行环境服务规范:GB/T 42572—2023[S].北京:中国标准出版社,2023.",
+    "Seedat M,Abbas Q,Ahmad N.Systematic Mapping of Monolithic Applications to Microservices Architecture[EB/OL].(2023-09-07)[2026-05-19].https://arxiv.org/abs/2309.03796."
   ],
   "acknowledgement": [
     "在本论文完成之际，我谨向在本科阶段给予我帮助和支持的老师、同学、家人与朋友表示诚挚的感谢。",
