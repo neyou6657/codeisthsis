@@ -1547,5 +1547,13 @@
     "[38] National Institute of Standards and Technology.Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography:SP 800-56A Rev.3[S].Gaithersburg:National Institute of Standards and Technology,2018.",
     "[39] Gamma E,Helm R,Johnson R,Vlissides J.Design Patterns: Elements of Reusable Object-Oriented Software[M].Reading:Addison-Wesley,1994.",
     "[40] Hohpe G,Woolf B.Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions[M].Boston:Addison-Wesley,2003."
+  ],
+  "acknowledgement": [
+    "在本论文完成之际，我谨向在本科阶段给予我帮助和支持的老师、同学、家人与朋友表示诚挚的感谢。",
+    "首先，感谢我的论文指导老师史国振老师。在论文选题、研究思路、系统设计与论文写作过程中，史老师给予了我耐心的指导和中肯的建议，使我能够逐步明确研究方向，完善论文内容。老师严谨的治学态度和认真负责的工作方式，也让我在完成论文的过程中受益良多。",
+    "感谢电科院各位授课老师在本科阶段的教导。四年来，各位老师在专业课程、实验实践和学术规范等方面给予了我系统的培养，为我完成本次毕业设计奠定了重要基础。",
+    "感谢同学和朋友们在学习与生活中给予的帮助与陪伴。无论是课程学习中的讨论，还是毕业设计过程中的交流，你们的建议和支持都让我能够更加从容地面对问题、推进工作。",
+    "感谢我的家人一直以来的理解、支持与鼓励。正是你们在生活中的包容与陪伴，让我能够安心完成本科阶段的学习任务。",
+    "本科生涯即将结束，回顾这四年的学习与成长，我深知其中离不开许多人的帮助。谨以此文向所有关心、支持和帮助过我的人表示衷心感谢。"
   ]
 }
